@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const page = path === "/" ? "home" : path.split("/")[1];
             switch (page) {
                 case "home":
+                    main.appendChild(document.createElement("header-component"));
                     main.appendChild(document.createElement("store-page"));
+                    main.appendChild(document.createElement("footer-component"));
                     break;
                 default:
                     break;

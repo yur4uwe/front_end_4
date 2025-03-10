@@ -8,14 +8,13 @@ class Content extends HTMLElement {
                 display: block;
                 padding: 10px;
                 text-align: center;
-                position: absolute;
-                top: 50px;
-                left: 0;
-                right: 0;
-                bottom: 0;
+                color: var(--text-color, black);
+                border-radius: 10px;
+                border: 2px solid var(--text-color, black);
             }
         </style>
         <div>
+            <h2>My Content</h2>
             <slot></slot>
         </div>
         `;

@@ -5,7 +5,7 @@
     --sc-color: #d58d8d;
     --bg-color-1: #E2725B;
     --bg-color-2: #ffdd44;
-    --text-color: #fa6404;
+    --text-color: #703c00;
     --font-style: 'Roboto', sans-serif;
 }
 
@@ -13,5 +13,5 @@ body {
     height: 100vh;
     margin: 0;
     font-family: var(--font-style);
-    background: linear-gradient(45deg, var(--bg-color-1) 10%, var(--bg-color-2) 70%);
+    background: linear-gradient(45deg, var(--bg-color-1) 0.5%, var(--bg-color-2) 70%);
 }

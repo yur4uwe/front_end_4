@@ -47,7 +47,7 @@ func (r *Response) JSONify() (string, error) {
 	}
 }
 
-func InitRes() *Response {
+func Init() *Response {
 	return &Response{}
 }
 
@@ -99,7 +99,7 @@ func (r *Response) GetPattern() string {
 }
 
 func SendError(w http.ResponseWriter, statusCode int, data map[string]string) {
-	InitRes().
+	Init().
 		SetStatus("error").
 		SetCode(statusCode).
 		Send(w)

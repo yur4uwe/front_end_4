@@ -10,6 +10,5 @@ func LogRequest(next http.Handler) http.Handler {
 		fmt.Println("+-----------------------------------+")
 		fmt.Println(r.Method, r.URL)
 		next.ServeHTTP(w, r)
-		fmt.Println("+-----------------------------------+")
 	})
 }

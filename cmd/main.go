@@ -15,6 +15,8 @@ func main() {
 	http.Handle("/photos/", http.StripPrefix("/photos/", photo_fs))
 
 	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/api/filters", handlers.Filters)
+	http.HandleFunc("/api/products", handlers.Products)
 
 	handler := middleware.LogRequest(http.DefaultServeMux)
 

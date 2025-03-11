@@ -10,7 +10,8 @@ type Response struct {
 	Status  string
 	Code    int
 	Data    interface{}
-	Pattern string
+	Error   *string
+	Message string
 }
 
 func (r *Response) JSONify() (string, error) {
@@ -27,11 +28,6 @@ func (r *Response) JSONify() (string, error) {
 			return "", err
 		}
 		json_repr += ", \"data\": " + dataObj
-	}
-
-	if r.GetPattern() != "" {
-		patternObj := fmt.Sprintf("\"pattern\": \"%s\"", r.GetPattern())
-		json_repr += ", " + patternObj
 	}
 
 	json_repr += "}"
@@ -66,14 +62,6 @@ func (r *Response) SetData(data interface{}) *Response {
 	return r
 }
 
-// SetPattern sets the pattern for response body.
-// pattern is a string that describes JSON structure of the data field.
-// Is used for parsing purposes on the client and server side.
-func (r *Response) SetPattern(pattern string) *Response {
-	r.Pattern = pattern
-	return r
-}
-
 func (r *Response) GetStatus() string {
 	return r.Status
 }
@@ -92,10 +80,6 @@ func (r *Response) StringifyData() (string, error) {
 		return "", err
 	}
 	return string(data), nil
-}
-
-func (r *Response) GetPattern() string {
-	return r.Pattern
 }
 
 func SendError(w http.ResponseWriter, statusCode int, data map[string]string) {

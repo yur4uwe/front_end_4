@@ -1,8 +1,9 @@
+import API from '../api/requester.js';
 
-class Store extends HTMLElement  {
+class Store extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
         <style>
             :host {
@@ -25,10 +26,38 @@ class Store extends HTMLElement  {
             }
         </style>
         <div>
-            <filters-component></filters-component>
-            <content-component></content-component>
+            <filters-component id="filter"></filters-component>
+            <content-component id="content"></content-component>
         </div>
         `;
+
+        const filterComponent = this.shadowRoot.getElementById('filter');
+        const contentComponent = this.shadowRoot.getElementById('content');
+
+        API.requestBuilder()
+            .method(API.Methods.GET)
+            .url("/api/products")
+            .q_params({ page: 1 })
+            .send()
+            .then(response => {
+                if (response.status === "error") {
+                    console.error(response.error);
+                    return;
+                }
+                contentComponent.setProducts(response.data)
+            });
+
+        API.requestBuilder()
+            .method(API.Methods.GET)
+            .url("/api/filters")
+            .send()
+            .then(response => {
+                if (response.status === "error") {
+                    console.error(response.error);
+                    return;
+                }
+                filterComponent.setFilters(response.data)
+            });
     }
 }
 

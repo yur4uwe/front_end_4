@@ -9,6 +9,15 @@
  */
 
 /**
+ * @typedef {Object} Response
+ * @property {Object} data
+ * @property {string} message
+ * @property {number} status
+ * @property {string} token
+ * @property {string} code
+ */
+
+/**
  * Class representing HTTP methods.
  */
 class Methods {
@@ -135,8 +144,18 @@ class RequestBuilder {
     }
 
     /**
+     * 
+     * @param {{param: string}[]} params 
+     * @returns 
+     */
+    q_params(params) {
+        this.params.url += '?' + Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&');
+        return this;
+    }
+
+    /**
      * Sends the request.
-     * @returns {Promise<Object>} The response data.
+     * @returns {Promise<Response>} The response data.
      */
     async send() {
         return this.api.makeRequest(this.params);

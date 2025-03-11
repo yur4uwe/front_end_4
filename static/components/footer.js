@@ -1,15 +1,17 @@
-class Footer extends HTMLElement  {
+class Footer extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
         <style>
             :host {
-                display: block;
+                display: flex;
                 color: white;
                 padding: 10px;
                 text-align: center;
-                position: fixed;
+                justify-content: center;
+                align-items: center;
+                position: relative;
                 bottom: 0;
                 left: 0;
                 width: calc(100% - 20px);

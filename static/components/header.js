@@ -11,6 +11,7 @@ class Header extends HTMLElement {
                 text-align: center;
                 width: calc(100% - 20px);
                 height: var(--header-height);
+                background-color: linear-gradient(90deg, var(--pr-color), var(--sc-color));
                 position: absolute;
                 top: 0;
                 left 0;

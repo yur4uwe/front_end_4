@@ -1,1 +1,33 @@
-[]
+[
+    {
+        "name": "Price",
+        "type": "range",
+        "options": [],
+        "range": [
+            0,
+            1000
+        ]
+    },
+    {
+        "name": "Category",
+        "type": "checkbox",
+        "options": [
+            "Electronics",
+            "Clothing",
+            "Home",
+            "Kitchen"
+        ],
+        "range": []
+    },
+    {
+        "name": "Brand",
+        "type": "checkbox",
+        "options": [
+            "Brand 1",
+            "Brand 2",
+            "Brand 3",
+            "Brand 4"
+        ],
+        "range": []
+    }
+]

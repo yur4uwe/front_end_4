@@ -11,11 +11,13 @@ import (
 
 type Filter struct {
 	Name    string     `json:"name"`
+	Type    string     `json:"type"`
 	Options []string   `json:"options"`
 	Range   [2]float64 `json:"range"`
 }
 
 type Product struct {
+	ID          int     `json:"id"`
 	Name        string  `json:"name"`
 	Price       float64 `json:"price"`
 	Description string  `json:"description"`
@@ -77,9 +79,16 @@ func Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("Products handler, products:", products)
+
 	page_len := 20
 
-	products_page := products[(page_len * (page - 1)) : page_len*page]
+	var products_page []Product
+	if len(products) > page_len {
+		products_page = products[(page_len * (page - 1)) : page_len*page]
+	} else {
+		products_page = products[(page_len * (page - 1)):]
+	}
 
 	for i, product := range products_page {
 		products_page[i].Photo = getPhotoLocation(product.Photo)

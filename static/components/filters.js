@@ -1,3 +1,8 @@
+
+/**
+ * @typedef {{name: string, type: string, options: string[], range: number[]}} Filter
+ */
+
 class Filters extends HTMLElement {
     constructor() {
         super();
@@ -20,6 +25,40 @@ class Filters extends HTMLElement {
             <slot></slot>
         </div>
         `;
+    }
+
+    /**
+     * 
+     * @param {Filter[]} filters 
+     */
+    setFilters(filters) {
+        filters.forEach(filter => {
+            const filterElement = document.createElement('div');
+
+            const name = document.createElement('h3');
+            name.textContent = filter.name;
+
+            filterElement.appendChild(name);
+
+            if (filter.type === 'select') {
+                const select = document.createElement('select');
+                filter.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.textContent = option;
+                    select.appendChild(optionElement);
+                });
+
+                filterElement.appendChild(select);
+            } else if (filter.type === 'range') {
+                const range = document.createElement('input');
+                range.type = 'range';
+                range.min = filter.range[0];
+                range.max = filter.range[1];
+                filterElement.appendChild(range);
+            }
+
+            this.shadowRoot.appendChild(filterElement);
+        });
     }
 }
 

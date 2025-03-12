@@ -12,16 +12,19 @@ class Store extends HTMLElement {
                 margin-top: calc(var(--header-height) + 20px);
                 padding: 20px;
             }
-            div {
+            div {  
                 display: flex;
-                
+                justify-content: center;
+                width: 100%;              
             }
             filters-component {
-                width: 30%;
+                width: min-content;
+                padding: 10px;
                 margin-right: 5px;
+                max-width: 300px;
             }
             content-component {
-                width: 70%;
+                width: 100%;
                 margin-left: 5px;
             }
         </style>

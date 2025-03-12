@@ -23,7 +23,7 @@ class Content extends HTMLElement {
             #content {
                 display: grid;
                 gap: 10px;
-                grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
             }
             img {
                 max-width: 200px;

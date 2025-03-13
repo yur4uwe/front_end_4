@@ -35,7 +35,16 @@ class Store extends HTMLElement {
         `;
 
         const filterComponent = this.shadowRoot.getElementById('filter');
+        if (!filterComponent) {
+            console.error("Filter component not found");
+            return;
+        }
+
         const contentComponent = this.shadowRoot.getElementById('content');
+        if (!contentComponent) {
+            console.error("Content component not found");
+            return;
+        }
 
         API.requestBuilder()
             .method(API.Methods.GET)

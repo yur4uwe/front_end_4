@@ -1,0 +1,47 @@
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked+span::after {
+    width: 100%;
+    transition: width 0.5s;
+}
+
+input[type="checkbox"]:not(:checked)+span::after {
+    width: 0;
+    transition: width 0.5s;
+}
+
+span.checkbox {
+    position: relative;
+    /* Ensure the span is positioned relative */
+    border: 1px solid var(--text-color, black);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 2px 10px 2px 0;
+    background-color: var(--sc-color);
+    cursor: pointer;
+    overflow: hidden;
+    /* Hide the overflow to ensure the ::after element is contained */
+    z-index: 2;
+    /* Ensure the text is above the ::after element */
+}
+
+span.checkbox::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: var(--pr-color);
+    transition: width 0.5s;
+    z-index: 1;
+    /* Ensure the ::after element is below the text */
+}
+
+.checkbox-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    white-space: nowrap;
+}

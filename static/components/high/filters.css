@@ -1,0 +1,29 @@
+:host {
+    display: block;
+    color: var(--text-color, black);
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid var(--text-color, black);
+}
+
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#apply-filters img,
+#clear-filters img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.filters-header button {
+    background-color: transparent;
+    border: none;
+}

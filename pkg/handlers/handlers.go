@@ -104,9 +104,9 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Products:", products)
 	fmt.Println("Filters:", filters)
 
-	checkbox_filters := filters["checkbox_filters"].(map[string]bool)
-	range_filters := filters["range_filters"].(map[string]string)
-	select_filters := filters["select_filters"].(map[string]string)
+	checkbox_filters := filters["checkboxFilters"]
+	range_filters := filters["rangeFilters"]
+	select_filters := filters["selectFilters"]
 
 	fmt.Println("Checkbox filters:", checkbox_filters)
 	fmt.Println("Range filters:", range_filters)

@@ -1,3 +1,4 @@
+
 /**
  * @typedef {{id: number, name: string, price: number, description: string, photo: string}} Product
  */
@@ -6,39 +7,22 @@ class Content extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.loadStyles();
         this.shadowRoot.innerHTML = `
-        <style>
-            :host {
-                display: block;
-                padding: 10px;
-                text-align: center;
-                color: var(--text-color, black);
-                border-radius: 10px;
-                border: 2px solid var(--text-color, black);
-            }
-            #header {
-                display: flex;
-                justify-content: center;
-            }
-            #content {
-                display: grid;
-                gap: 10px;
-                grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-            }
-            img {
-                max-width: 200px;
-                max-height: 200px;
-                object-fit: contain;
-                border-radius: 5px;
-                border: 1px solid var(--text-color, black);
-            }
-        </style>
         <div id="header">
             <h2>My Content</h2>
             <slot></slot>
         </div>
         <div id="content"></div>
         `;
+    }
+
+    async loadStyles() {
+        const style = await fetch('/static/components/high/content.css');
+        const styleText = await style.text();
+        const styleElement = document.createElement('style');
+        styleElement.textContent = styleText;
+        this.shadowRoot.appendChild(styleElement);
     }
 
     /**

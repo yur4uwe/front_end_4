@@ -1,0 +1,27 @@
+:host {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: var(--text-color, black);
+    border-radius: 10px;
+    border: 2px solid var(--text-color, black);
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+}
+
+#content {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+}
+
+img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid var(--text-color, black);
+}

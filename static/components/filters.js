@@ -1,3 +1,4 @@
+import API from "../api/requester.js"
 
 /**
  * @typedef {{name: string, type: string, options: string[], range: number[]}} Filter
@@ -49,6 +50,7 @@ class Filters extends HTMLElement {
         </style>
         <div>
             <h2>My Filters</h2>
+            <form id="filter-form"></form>
             <slot></slot>
         </div>
         `;
@@ -59,6 +61,14 @@ class Filters extends HTMLElement {
      * @param {Filter[]} filters 
      */
     setFilters(filters) {
+        const filterForm = this.shadowRoot.getElementById("filter-form");
+        filterForm.addEventListener("submit", this.submitFilters.bind(this)); // Use addEventListener for form submission
+
+        const applyFilters = document.createElement("button");
+        applyFilters.type = "submit"; // Set the button type to submit
+        applyFilters.textContent = "Apply Filters";
+        filterForm.appendChild(applyFilters);
+
         filters.forEach(filter => {
             const filterElement = document.createElement('div');
 
@@ -84,6 +94,7 @@ class Filters extends HTMLElement {
                 range.type = 'range';
                 range.min = filter.range[0];
                 range.max = filter.range[1];
+                range.value = filter.range[1];
 
                 labelElement.appendChild(range);
 
@@ -127,7 +138,7 @@ class Filters extends HTMLElement {
                 });
             }
 
-            this.shadowRoot.appendChild(filterElement);
+            filterForm.appendChild(filterElement);
         });
     }
 
@@ -150,10 +161,39 @@ class Filters extends HTMLElement {
         const rangeFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="range"]'));
         rangeFilters.reduce((acc, filter) => {
             acc[filter.id] = filter.value;
+            console.log(filter.value);
             return acc;
         }, {});
+        console.log("range filters:", rangeFilters);
 
-        return { ...checkboxFilters, ...selectFilters, ...rangeFilters };
+        return { checkboxFilters, selectFilters, rangeFilters };
+    }
+
+    /**
+     * 
+     * @param {MouseEvent} e 
+     */
+    async submitFilters(e) {
+        e.preventDefault()
+
+        API.requestBuilder()
+            .url("/api/submit-filters")
+            .body(this.filterState())
+            .method(API.Methods.POST)
+            .q_params({page: 1})
+            .send()
+            .then((response) => {
+                /**
+                 * @type {Product[]} filteredContent
+                 */
+                const filteredContent = response.data;
+
+                const contentElement = document.querySelector("store-page")
+                    .shadowRoot
+                    .getElementById("content");
+
+                contentElement.setProducts(filteredContent);
+            }).catch((err) => console.error(err))
     }
 }
 

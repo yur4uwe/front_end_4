@@ -145,7 +145,7 @@ class RequestBuilder {
 
     /**
      * 
-     * @param {{param: string}[]} params 
+     * @param {{param: string}} params 
      * @returns 
      */
     q_params(params) {

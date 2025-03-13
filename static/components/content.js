@@ -46,6 +46,9 @@ class Content extends HTMLElement {
      * @param {Product[]} products 
      */
     setProducts(products) {
+        const contentDiv = this.shadowRoot.getElementById("content");
+        contentDiv.innerHTML = "";
+
         products.forEach(product => {
             const productElement = document.createElement('card-component');
 
@@ -69,7 +72,7 @@ class Content extends HTMLElement {
 
             productElement.appendChild(description);
 
-            this.shadowRoot.getElementById("content").appendChild(productElement);
+            contentDiv.appendChild(productElement);
         });
     }
 }

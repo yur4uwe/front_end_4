@@ -52,7 +52,7 @@ func Filters(w http.ResponseWriter, r *http.Request) {
 }
 
 func Products(w http.ResponseWriter, r *http.Request) {
-	page_str := r.URL.Query().Get("page")
+	page_str := readQueryParams(r)["page"][0]
 	if page_str == "" {
 		page_str = "1"
 	}
@@ -64,39 +64,51 @@ func Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	file, err := os.ReadFile("../data/products.json")
+	products, err := readProducts(page)
 	if err != nil {
-		fmt.Println("Products handler, reading products.json reading error:", err)
+		fmt.Println("Products handler error:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
-	}
-
-	var products []Product
-	err = json.Unmarshal(file, &products)
-	if err != nil {
-		fmt.Println("Products handler, unmarshalling products.json error:", err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Println("Products handler, products:", products)
-
-	page_len := 20
-
-	var products_page []Product
-	if len(products) > page_len {
-		products_page = products[(page_len * (page - 1)) : page_len*page]
-	} else {
-		products_page = products[(page_len * (page - 1)):]
-	}
-
-	for i, product := range products_page {
-		products_page[i].Photo = getPhotoLocation(product.Photo)
 	}
 
 	response.Init().
 		SetStatus("success").
 		SetCode(http.StatusOK).
-		SetData(products_page).
+		SetData(products).
+		Send(w)
+}
+
+func ApplyFilters(w http.ResponseWriter, r *http.Request) {
+	page, err := parsePage(r.URL.Query().Get("page"))
+	if err != nil {
+		fmt.Println("Apply filters page parse error: ", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Body:", r.Body)
+
+	var filters map[string]interface{}
+	err = json.NewDecoder(r.Body).Decode(&filters)
+	if err != nil {
+		fmt.Println("Apply filters body parse error:", err)
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+
+	products, err := readProducts(page)
+	if err != nil {
+		fmt.Println("Apply filters parse products error:", err)
+		http.Error(w, "Internal Server error", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Products:", products)
+	fmt.Println("Filters:", filters)
+
+	response.Init().
+		SetStatus("success").
+		SetCode(http.StatusOK).
+		SetData(products).
 		Send(w)
 }

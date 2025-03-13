@@ -79,6 +79,7 @@ class Filters extends HTMLElement {
 
             if (filter.type === 'select') {
                 const select = document.createElement('select');
+                select.id = filter.name;
                 filter.options.forEach(option => {
                     const optionElement = document.createElement('option');
                     optionElement.textContent = option;
@@ -91,6 +92,7 @@ class Filters extends HTMLElement {
                 labelElement.innerHTML = filter.range[0];
 
                 const range = document.createElement('input');
+                range.id = filter.name;
                 range.type = 'range';
                 range.min = filter.range[0];
                 range.max = filter.range[1];
@@ -118,7 +120,7 @@ class Filters extends HTMLElement {
                 divElement.classList.add('checkbox-container');
                 filter.options.forEach(option => {
                     const checkboxElement = document.createElement('input');
-                    checkboxElement.id = option + '-checkbox';
+                    checkboxElement.id = option;
                     checkboxElement.type = 'checkbox';
 
                     divElement.appendChild(checkboxElement);
@@ -146,25 +148,23 @@ class Filters extends HTMLElement {
      * @returns {FilterState}
      */
     filterState() {
-        const checkboxFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="checkbox"]'));
-        checkboxFilters.reduce((acc, filter) => {
+        let checkboxFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="checkbox"]'));
+        checkboxFilters = checkboxFilters.reduce((acc, filter) => {
             acc[filter.id] = filter.checked;
             return acc;
         }, {});
 
-        const selectFilters = Array.from(this.shadowRoot.querySelectorAll('select'));
-        selectFilters.reduce((acc, filter) => {
+        let selectFilters = Array.from(this.shadowRoot.querySelectorAll('select'));
+        selectFilters = selectFilters.reduce((acc, filter) => {
             acc[filter.id] = filter.value;
             return acc;
         }, {});
 
-        const rangeFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="range"]'));
-        rangeFilters.reduce((acc, filter) => {
+        let rangeFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="range"]'));
+        rangeFilters = rangeFilters.reduce((acc, filter) => {
             acc[filter.id] = filter.value;
-            console.log(filter.value);
             return acc;
         }, {});
-        console.log("range filters:", rangeFilters);
 
         return { checkboxFilters, selectFilters, rangeFilters };
     }

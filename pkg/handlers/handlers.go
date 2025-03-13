@@ -86,8 +86,6 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("Body:", r.Body)
-
 	var filters map[string]interface{}
 	err = json.NewDecoder(r.Body).Decode(&filters)
 	if err != nil {
@@ -105,6 +103,14 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Products:", products)
 	fmt.Println("Filters:", filters)
+
+	checkbox_filters := filters["checkbox_filters"].(map[string]bool)
+	range_filters := filters["range_filters"].(map[string]string)
+	select_filters := filters["select_filters"].(map[string]string)
+
+	fmt.Println("Checkbox filters:", checkbox_filters)
+	fmt.Println("Range filters:", range_filters)
+	fmt.Println("Select filters:", select_filters)
 
 	response.Init().
 		SetStatus("success").

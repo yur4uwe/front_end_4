@@ -6,7 +6,12 @@ label {
     margin: 10px 0;
 }
 
-input[type="range"] {
+range-input {
+    /* Remove default appearance */
     width: 100%;
     min-width: 200px;
+    display: block;
+    padding: 0 10px;
+    margin: 0;
+    /* Remove default background */
 }

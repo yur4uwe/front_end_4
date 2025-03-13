@@ -4,30 +4,8 @@ class Store extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.loadStyles();
         this.shadowRoot.innerHTML = `
-        <style>
-            :host {
-                display: block;
-                text-align: center;
-                margin-top: calc(var(--header-height) + 20px);
-                padding: 20px;
-            }
-            div {  
-                display: flex;
-                justify-content: center;
-                width: 100%;              
-            }
-            filters-component {
-                width: min-content;
-                padding: 10px;
-                margin-right: 5px;
-                max-width: 300px;
-            }
-            content-component {
-                width: 100%;
-                margin-left: 5px;
-            }
-        </style>
         <div>
             <filters-component id="filter"></filters-component>
             <content-component id="content"></content-component>
@@ -70,6 +48,14 @@ class Store extends HTMLElement {
                 }
                 filterComponent.setFilters(response.data)
             });
+    }
+
+    async loadStyles() {
+        const style = await fetch('/static/pages/store.css');
+        const styleText = await style.text();
+        const styleElement = document.createElement('style');
+        styleElement.textContent = styleText;
+        this.shadowRoot.appendChild(styleElement);
     }
 }
 

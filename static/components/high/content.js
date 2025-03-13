@@ -35,26 +35,27 @@ class Content extends HTMLElement {
 
         products.forEach(product => {
             const productElement = document.createElement('card-component');
+            const productElementShadowRoot = productElement.shadowRoot;
 
             const photo = document.createElement('img');
             photo.src = product.photo;
 
-            productElement.appendChild(photo);
+            productElementShadowRoot.appendChild(photo);
 
             const name = document.createElement('h3');
             name.textContent = product.name;
 
-            productElement.appendChild(name);
+            productElementShadowRoot.appendChild(name);
 
             const priceElement = document.createElement('p');
             priceElement.textContent = product.price;
 
-            productElement.appendChild(priceElement);
+            productElementShadowRoot.appendChild(priceElement);
 
             const description = document.createElement('p');
             description.textContent = product.description;
 
-            productElement.appendChild(description);
+            productElementShadowRoot.appendChild(description);
 
             contentDiv.appendChild(productElement);
         });

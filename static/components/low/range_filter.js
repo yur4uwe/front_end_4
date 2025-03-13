@@ -44,16 +44,11 @@ class RangeFilter extends HTMLElement {
         this.shadowRoot.appendChild(name);
 
         const labelElement = document.createElement('label');
-        labelElement.innerHTML = filterState.range[0];
+        labelElement.innerHTML = `<span>${filterState.range[0]}</span>`;
 
-        const range = document.createElement('input');
+        const range = document.createElement('range-input');
         range.id = filterState.name;
-        range.type = 'range';
-        range.min = filterState.range[0];
-        range.max = filterState.range[1];
-        range.value = filterState.range[1];
-
-        labelElement.appendChild(range);
+        range.setAttributes(filterState.range[0], filterState.range[1], filterState.range[1]);
 
         const valueSpanElement = document.createElement('span');
         valueSpanElement.id = filterState.name + '-value';
@@ -61,12 +56,14 @@ class RangeFilter extends HTMLElement {
         const maxValueLength = filterState.range[1].toString().length;
         valueSpanElement.style.width = `${maxValueLength}ch`;
 
-        labelElement.appendChild(valueSpanElement);
+        range.addEventListener('input-change', (e) => {
+            const value = e.detail;
+            console.log('input:', value);
+            valueSpanElement.innerHTML = value;
+        });
 
-        range.onchange = () => {
-            const valueSpanElement = this.shadowRoot.getElementById(filterState.name + '-value');
-            valueSpanElement.innerHTML = range.value;
-        };
+        labelElement.appendChild(range);
+        labelElement.appendChild(valueSpanElement);
 
         this.shadowRoot.appendChild(labelElement);
     }

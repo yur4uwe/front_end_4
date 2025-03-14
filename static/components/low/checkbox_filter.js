@@ -57,12 +57,13 @@ class CheckboxFilter extends HTMLElement {
 
             const optionNameElement = document.createElement('span');
             optionNameElement.classList.add('checkbox');
-            optionNameElement.textContent = option;
             optionNameElement.onclick = () => {
                 const name = option;
                 const checkbox = this.shadowRoot.getElementById(name);
                 checkbox.checked = !checkbox.checked;
             };
+
+            optionNameElement.innerHTML = `<span>${option}</span>`;
 
             divElement.appendChild(optionNameElement);
 

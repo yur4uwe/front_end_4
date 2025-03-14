@@ -50,20 +50,37 @@ class RangeFilter extends HTMLElement {
         range.id = filterState.name;
         range.setAttributes(filterState.range[0], filterState.range[1], filterState.range[1]);
 
-        const valueSpanElement = document.createElement('span');
-        valueSpanElement.id = filterState.name + '-value';
-        valueSpanElement.innerHTML = range.value;
+        const valueInputElement = document.createElement('input');
+        valueInputElement.type = 'text';
+        valueInputElement.min = filterState.range[0];
+        valueInputElement.max = filterState.range[1];
+        valueInputElement.value = range.value;
+
+        valueInputElement.id = filterState.name + '-value';
+        valueInputElement.classList.add('range-value');
         const maxValueLength = filterState.range[1].toString().length;
-        valueSpanElement.style.width = `${maxValueLength}ch`;
+        valueInputElement.style.width = `${maxValueLength}ch`;
+
+        valueInputElement.addEventListener('input', (e) => {
+            if (e.target.value < filterState.range[0]) {
+                e.target.value = filterState.range[0];
+            } else if (e.target.value > filterState.range[1]) {
+                e.target.value = filterState.range[1];
+            }
+            console.log('input:', e.target.value);
+            range.dispatchEvent(new CustomEvent('value-change', { detail: e.target.value }));
+        });
+
+
 
         range.addEventListener('input-change', (e) => {
             const value = e.detail;
-            console.log('input:', value);
-            valueSpanElement.innerHTML = value;
+            //console.log('input:', value);
+            valueInputElement.value = value;
         });
 
         labelElement.appendChild(range);
-        labelElement.appendChild(valueSpanElement);
+        labelElement.appendChild(valueInputElement);
 
         this.shadowRoot.appendChild(labelElement);
     }

@@ -8,13 +8,7 @@ class Content extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
-        this.shadowRoot.innerHTML = `
-        <div id="header">
-            <h2>My Content</h2>
-            <slot></slot>
-        </div>
-        <div id="content"></div>
-        `;
+        this.shadowRoot.innerHTML = `<div id="content"></div>`;
     }
 
     async loadStyles() {
@@ -37,25 +31,27 @@ class Content extends HTMLElement {
             const productElement = document.createElement('card-component');
             const productElementShadowRoot = productElement.shadowRoot;
 
-            const photo = document.createElement('img');
-            photo.src = product.photo;
+            productElement.setImage(product.photo);
 
-            productElementShadowRoot.appendChild(photo);
+            const infoContainer = document.createElement('div');
+            infoContainer.id = "info-container";
 
             const name = document.createElement('h3');
             name.textContent = product.name;
 
-            productElementShadowRoot.appendChild(name);
+            infoContainer.appendChild(name);
 
             const priceElement = document.createElement('p');
-            priceElement.textContent = product.price;
+            priceElement.textContent = product.price + "$";
 
-            productElementShadowRoot.appendChild(priceElement);
+            infoContainer.appendChild(priceElement);
 
             const description = document.createElement('p');
             description.textContent = product.description;
 
-            productElementShadowRoot.appendChild(description);
+            infoContainer.appendChild(description);
+
+            productElementShadowRoot.appendChild(infoContainer);
 
             contentDiv.appendChild(productElement);
         });

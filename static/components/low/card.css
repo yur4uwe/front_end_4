@@ -1,11 +1,20 @@
 :host {
     display: block;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: var(--text-color, black);
     margin: 10px;
     padding: 10px;
     text-align: center;
+    bottom: 0;
+}
+
+:host(:hover) {
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    bottom: 10px;
+
+    transition: bottom 0.5s, box-shadow 0.5s, position 0.5s;
 }
 
 img {
@@ -14,4 +23,16 @@ img {
     max-width: 200px;
     max-height: 200px;
     object-fit: contain;
+}
+
+#img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+#info-container {
+    text-align: left;
+    height: 40%;
 }

@@ -12,6 +12,8 @@ class Range extends HTMLElement {
             <div id="selected" class="selected-range"></div>
         </div>
         `;
+
+        this.addEventListener('value-change', this.handleValueChange);
     }
 
     /**
@@ -24,6 +26,10 @@ class Range extends HTMLElement {
         this.min = min;
         this.max = max;
         this.value = value;
+
+
+
+        this.changeSelectedWidthByValue();
     }
 
     async loadStyles() {
@@ -43,9 +49,11 @@ class Range extends HTMLElement {
         this.addEventListener('mouseup', this.handleMouseUp);
     }
 
+    /**
+     * 
+     * @param {MouseEvent} event 
+     */
     handleMouseMove(event) {
-        //console.log('mouse move');
-
         const thumb = this.shadowRoot.getElementById('thumb');
         const selected = this.shadowRoot.getElementById('selected');
         const track = this.shadowRoot.getElementById('track');
@@ -68,13 +76,13 @@ class Range extends HTMLElement {
 
         if (selectedWidth < thumbWidth / 2) {
             selected.style.width = `${thumbWidth}px`;
-            selected.style.left = `${thumbWidth / 2}px`;
+            selected.style.left = `${thumbWidth / 2 - 1}px`;
         } else if (selectedWidth > trackWidth - thumbWidth / 2) {
             selected.style.width = `${trackWidth - thumbWidth / 2}px`;
-            selected.style.left = `${(trackWidth - thumbWidth / 2) / 2}px`;
+            selected.style.left = `${(trackWidth - thumbWidth / 2) / 2 - 1}px`;
         } else {
             selected.style.width = `${selectedWidth}px`;
-            selected.style.left = `${selectedWidth / 2}px`;
+            selected.style.left = `${selectedWidth / 2 - 1}px`;
         }
 
         const value = Math.round((selectedWidth / trackWidth) * this.max);
@@ -96,6 +104,47 @@ class Range extends HTMLElement {
         //console.log('mouse up');
         this.removeEventListener('mousemove', this.handleMouseMove);
         this.removeEventListener('mouseup', this.handleMouseUp);
+    }
+
+    /**
+     * 
+     * @param {CustomEvent} event 
+     */
+    handleValueChange(event) {
+        console.log('value change:', event.detail);
+        this.value = event.detail;
+
+        this.changeSelectedWidthByValue();
+    }
+
+    changeSelectedWidthByValue() {
+        console.log(this.value, this.max);
+
+        const thumb = this.shadowRoot.getElementById('thumb');
+        const selected = this.shadowRoot.getElementById('selected');
+        const track = this.shadowRoot.getElementById('track');
+
+        const thumbWidth = thumb.offsetWidth ? thumb.offsetWidth : 20;
+        const trackWidth = track.offsetWidth ? track.offsetWidth : 200;
+
+        const selectedWidth = (this.value / this.max) * trackWidth;
+
+        if (selectedWidth <= thumbWidth / 2) {
+            selected.style.width = `${selectedWidth}px`;
+            selected.style.left = `${selectedWidth / 2}px`;
+
+            thumb.style.left = `${thumbWidth / 2}px`;
+        } else if (selectedWidth >= trackWidth - thumbWidth / 2) {
+            selected.style.width = `${trackWidth - thumbWidth / 2}px`;
+            selected.style.left = `${(trackWidth - thumbWidth / 2) / 2}px`;
+
+            thumb.style.left = `${trackWidth - thumbWidth / 2}px`;
+        } else {
+            selected.style.width = `${selectedWidth}px`;
+            selected.style.left = `${selectedWidth / 2}px`;
+
+            thumb.style.left = `${selectedWidth}px`;
+        }
     }
 }
 

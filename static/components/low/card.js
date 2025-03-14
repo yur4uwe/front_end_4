@@ -12,6 +12,14 @@ class Card extends HTMLElement {
         styleElement.textContent = styleText;
         this.shadowRoot.appendChild(styleElement);
     }
+
+    /**
+     * 
+     * @param {string} photo 
+     */
+    setImage(photo) {
+        this.shadowRoot.innerHTML += `<div id="img-container"><img src="${photo}"></div>`;
+    }
 }
 
 customElements.define('card-component', Card);

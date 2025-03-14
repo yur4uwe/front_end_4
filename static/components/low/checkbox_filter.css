@@ -23,7 +23,6 @@ span.checkbox {
     cursor: pointer;
     overflow: hidden;
     /* Hide the overflow to ensure the ::after element is contained */
-    z-index: 2;
     /* Ensure the text is above the ::after element */
 }
 
@@ -36,8 +35,13 @@ span.checkbox::after {
     width: 0;
     background-color: var(--pr-color);
     transition: width 0.5s;
-    z-index: 1;
     /* Ensure the ::after element is below the text */
+}
+
+span.checkbox span {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
 }
 
 .checkbox-container {

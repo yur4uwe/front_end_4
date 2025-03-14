@@ -3,7 +3,7 @@ class Header extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
-        this.shadowRoot.innerHTML += `<h1>My Shop</h1>`;
+        this.shadowRoot.innerHTML += `<h1>Buy Your Brainrot</h1>`;
     }
 
     async loadStyles() {

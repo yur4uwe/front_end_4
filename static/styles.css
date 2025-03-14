@@ -5,12 +5,12 @@
     --sc-color: #d58d8d;
     --bg-color-1: #E2725B;
     --bg-color-2: #ffdd44;
-    --text-color: #703c00;
+    --text-color: #2e1800;
     --font-style: 'Roboto', sans-serif;
 }
 
 body {
-    height: 100vh;
+    height: 100%;
     margin: 0;
     font-family: var(--font-style);
     background: linear-gradient(45deg, var(--bg-color-1) 0.5%, var(--bg-color-2) 70%);

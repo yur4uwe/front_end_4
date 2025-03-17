@@ -66,5 +66,5 @@ func readProducts(page int) ([]Product, int, error) {
 		products_page[i].Photo = getPhotoLocation(product.Photo)
 	}
 
-	return products_page, int(len(products)/page_len + 1), nil
+	return products_page, int((len(products)) / page_len), nil
 }

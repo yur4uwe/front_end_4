@@ -1,5 +1,5 @@
-
 const min = (a, b) => a < b ? a : b;
+const max = (a, b) => a > b ? a : b;
 
 class Range extends HTMLElement {
     constructor() {
@@ -8,25 +8,27 @@ class Range extends HTMLElement {
         this.loadStyles();
         this.shadowRoot.innerHTML = `
         <div id="track" class="range-track">
-            <div id="thumb" class="range-thumb"></div>
+            <div id="thumb-min" class="range-thumb"></div>
+            <div id="thumb-max" class="range-thumb"></div>
             <div id="selected" class="selected-range"></div>
         </div>
         `;
 
-        this.addEventListener('value-change', this.handleValueChange);
+        this.addEventListener('min-value-change', this.handleValueChange.bind(this));
+        this.addEventListener('max-value-change', this.handleValueChange.bind(this));
     }
 
     /**
-     * 
      * @param {number} min 
      * @param {number} max 
-     * @param {number} value 
+     * @param {number} minValue 
+     * @param {number} maxValue 
      */
-    setAttributes(min, max, value) {
+    setAttributes(min, max, minValue, maxValue) {
         this.min = min;
         this.max = max;
-        this.value = value;
-
+        this.minValue = Math.max(min, Math.min(minValue, max));
+        this.maxValue = Math.min(max, Math.max(maxValue, this.minValue));
         this.changeSelectedWidthByValue();
     }
 
@@ -39,107 +41,110 @@ class Range extends HTMLElement {
     }
 
     connectedCallback() {
-        this.addEventListener('mousedown', this.handleMouseDown);
+        const thumbMin = this.shadowRoot.getElementById('thumb-min');
+        const thumbMax = this.shadowRoot.getElementById('thumb-max');
+        thumbMin.addEventListener('mousedown', this.handleMouseDown.bind(this));
+        thumbMax.addEventListener('mousedown', this.handleMouseDown.bind(this));
     }
 
     handleMouseDown(event) {
-        this.addEventListener('mousemove', this.handleMouseMove);
-        this.addEventListener('mouseup', this.handleMouseUp);
+        this.currentThumb = event.target;
+        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+        document.addEventListener('mouseup', this.handleMouseUp.bind(this));
     }
 
-    /**
-     * 
-     * @param {MouseEvent} event 
-     */
     handleMouseMove(event) {
-        const thumb = this.shadowRoot.getElementById('thumb');
-        const selected = this.shadowRoot.getElementById('selected');
+        const thumb = this.currentThumb;
+        if (!thumb) return;
+
+        const isLeftThumb = thumb.id === 'thumb-min';
         const track = this.shadowRoot.getElementById('track');
-
+        const trackRect = track.getBoundingClientRect();
         const thumbWidth = thumb.offsetWidth;
+        const trackWidth = trackRect.width;
+        const trackLeft = trackRect.left;
+
+        let newPosition = event.clientX - trackLeft - thumbWidth / 2;
+        newPosition = max(newPosition, 0);
+        newPosition = min(newPosition, trackWidth - thumbWidth);
+
+        if (isLeftThumb) {
+            const thumbMaxPos = this.shadowRoot.getElementById('thumb-max').offsetLeft;
+            newPosition = min(newPosition, thumbMaxPos - thumbWidth);
+        } else {
+            const thumbMinPos = this.shadowRoot.getElementById('thumb-min').offsetLeft;
+            newPosition = max(newPosition, thumbMinPos + thumbWidth);
+        }
+
+        thumb.style.left = `${newPosition}px`;
+        this.updateSelectedRange();
+        this.updateValuesFromPosition();
+    }
+
+    updateSelectedRange() {
+        const thumbMin = this.shadowRoot.getElementById('thumb-min');
+        const thumbMax = this.shadowRoot.getElementById('thumb-max');
+        const selected = this.shadowRoot.getElementById('selected');
+        const trackWidth = this.shadowRoot.getElementById('track').offsetWidth;
+        const thumbWidth = thumbMin.offsetWidth;
+
+        const selectedMin = thumbMin.offsetLeft + thumbWidth / 2;
+        const selectedMax = thumbMax.offsetLeft + thumbWidth / 2;
+        selected.style.left = `${selectedMin}px`;
+        selected.style.width = `${selectedMax - selectedMin}px`;
+    }
+
+    updateValuesFromPosition() {
+        const track = this.shadowRoot.getElementById('track');
         const trackWidth = track.offsetWidth;
+        const thumbMin = this.shadowRoot.getElementById('thumb-min');
+        const thumbMax = this.shadowRoot.getElementById('thumb-max');
 
-        const thumbPosition = event.clientX - this.getBoundingClientRect().left - thumbWidth / 2;
-        //console.log(thumbPosition);
-        const selectedWidth = min(thumbPosition, trackWidth);
-        //console.log(min(selectedWidth, trackWidth));
+        const minPosition = thumbMin.offsetLeft + thumbMin.offsetWidth / 2;
+        const maxPosition = thumbMax.offsetLeft + thumbMax.offsetWidth / 2;
 
-        if (thumbPosition < thumbWidth / 2) {
-            thumb.style.left = `${thumbWidth / 2}px`;
-        } else if (thumbPosition > trackWidth - thumbWidth / 2) {
-            thumb.style.left = `${trackWidth - thumbWidth / 2}px`;
-        } else {
-            thumb.style.left = `${thumbPosition}px`;
-        }
+        this.minValue = Math.round((minPosition / trackWidth) * (this.max - this.min) + this.min);
+        this.maxValue = Math.round((maxPosition / trackWidth) * (this.max - this.min) + this.min);
 
-        if (selectedWidth < thumbWidth / 2) {
-            selected.style.width = `${thumbWidth}px`;
-            selected.style.left = `${thumbWidth / 2 - 1}px`;
-        } else if (selectedWidth > trackWidth - thumbWidth / 2) {
-            selected.style.width = `${trackWidth - thumbWidth / 2}px`;
-            selected.style.left = `${(trackWidth - thumbWidth / 2) / 2 - 1}px`;
-        } else {
-            selected.style.width = `${selectedWidth}px`;
-            selected.style.left = `${selectedWidth / 2 - 1}px`;
-        }
-
-        const value = Math.round((selectedWidth / trackWidth) * (this.max - this.min) + this.min);
-
-        if (value > this.max) {
-            this.value = this.max;
-        } else if (value < this.min) {
-            this.value = this.min;
-        } else {
-            this.value = value;
-        }
-
-        if (this.dispatchEvent(new CustomEvent('input-change', { detail: this.value }))) {
-            // console.log('input event dispatched');
-        }
+        this.dispatchEvent(new CustomEvent('input-change', {
+            detail: { minValue: this.minValue, maxValue: this.maxValue }
+        }));
     }
 
-    handleMouseUp(event) {
-        //console.log('mouse up');
-        this.removeEventListener('mousemove', this.handleMouseMove);
-        this.removeEventListener('mouseup', this.handleMouseUp);
+    handleMouseUp() {
+        document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+        document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+        this.currentThumb = null;
     }
 
-    /**
-     * 
-     * @param {CustomEvent} event 
-     */
     handleValueChange(event) {
-        this.value = event.detail;
-
+        if (event.type === 'min-value-change') {
+            const newMin = Number(event.detail.minValue);
+            this.minValue = Math.max(this.min, Math.min(newMin, this.maxValue));
+            this.maxValue = Math.max(this.maxValue, this.minValue);
+        } else if (event.type === 'max-value-change') {
+            const newMax = Number(event.detail.maxValue);
+            this.maxValue = Math.min(this.max, Math.max(newMax, this.minValue));
+            this.minValue = Math.min(this.minValue, this.maxValue);
+        }
         this.changeSelectedWidthByValue();
     }
 
     changeSelectedWidthByValue() {
-        const thumb = this.shadowRoot.getElementById('thumb');
-        const selected = this.shadowRoot.getElementById('selected');
         const track = this.shadowRoot.getElementById('track');
+        const trackWidth = track.offsetWidth;
+        if (trackWidth === 0 || this.max === this.min) return;
 
-        const thumbWidth = thumb.offsetWidth ? thumb.offsetWidth : 20;
-        const trackWidth = track.offsetWidth ? track.offsetWidth : 200;
+        const thumbMin = this.shadowRoot.getElementById('thumb-min');
+        const thumbMax = this.shadowRoot.getElementById('thumb-max');
+        const thumbWidth = thumbMin.offsetWidth;
 
-        const selectedWidth = (this.value / this.max) * trackWidth;
+        const minPosition = ((this.minValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth);
+        const maxPosition = ((this.maxValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth);
 
-        if (selectedWidth <= thumbWidth / 2) {
-            selected.style.width = `${selectedWidth}px`;
-            selected.style.left = `${selectedWidth / 2}px`;
-
-            thumb.style.left = `${thumbWidth / 2}px`;
-        } else if (selectedWidth >= trackWidth - thumbWidth / 2) {
-            selected.style.width = `${trackWidth - thumbWidth / 2}px`;
-            selected.style.left = `${(trackWidth - thumbWidth / 2) / 2}px`;
-
-            thumb.style.left = `${trackWidth - thumbWidth / 2}px`;
-        } else {
-            selected.style.width = `${selectedWidth}px`;
-            selected.style.left = `${selectedWidth / 2}px`;
-
-            thumb.style.left = `${selectedWidth}px`;
-        }
+        thumbMin.style.left = `${minPosition}px`;
+        thumbMax.style.left = `${maxPosition}px`;
+        this.updateSelectedRange();
     }
 }
 

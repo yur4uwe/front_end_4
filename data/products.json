@@ -154,13 +154,6 @@
         "photo": "backrooms_level0.jpg"
     },
     {
-        "id": 23,
-        "name": "Ankha Zone",
-        "price": -750,
-        "description": "",
-        "photo": "ankha_zone.jpg"
-    },
-    {
         "id": 24,
         "name": "T-Pose",
         "price": -325,

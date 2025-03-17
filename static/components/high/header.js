@@ -1,5 +1,3 @@
-import API from '../../api/requester.js';
-
 class Header extends HTMLElement {
     constructor() {
         super();

@@ -1,14 +1,8 @@
-/**
- * @typedef {{name: string, type: string, options: string[], range: number[]}} Filter
- * @typedef {{[key: string]: string | number | boolean}} FilterState
- */
-
 class RangeFilter extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
-        this.shadowRoot.innerHTML = ``;
     }
 
     async loadStyles() {
@@ -20,79 +14,89 @@ class RangeFilter extends HTMLElement {
     }
 
     filterState() {
-        if (this.shadowRoot.children.length === 0) {
-            return {};
-        }
-
-        let rangeFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="range"]'));
-        rangeFilters = rangeFilters.reduce((acc, filter) => {
-            acc[filter.id] = filter.value;
-            return acc;
-        }, {});
-
-        return rangeFilters;
+        const ranges = Array.from(this.shadowRoot.querySelectorAll('range-input'));
+        return ranges.reduce((acc, range) => ({
+            ...acc,
+            [range.id]: { min: range.minValue, max: range.maxValue }
+        }), {});
     }
 
     clearFilter() {
-        this.shadowRoot.querySelectorAll("range-input").forEach(range => {
-            console.log('clearing range');
-            range.value = range.max;
-            range.changeSelectedWidthByValue();
-
-            range.dispatchEvent(new CustomEvent('input-change', { detail: range.value }));
+        this.shadowRoot.querySelectorAll('range-input').forEach(range => {
+            range.setAttributes(range.min, range.max, range.min, range.max);
+            range.dispatchEvent(new CustomEvent('input-change', {
+                detail: { minValue: range.min, maxValue: range.max }
+            }));
         });
     }
 
     /**
-     *  
      * @param {Filter} filterState 
      */
     setFilterState(filterState) {
+        this.shadowRoot.innerHTML = '';
         const name = document.createElement('h3');
         name.textContent = filterState.name;
-
         this.shadowRoot.appendChild(name);
 
-        const labelElement = document.createElement('label');
-        labelElement.innerHTML = `<span>${filterState.range[0]}</span>`;
+        const maxCharWidth = Math.max(...filterState.range.map(num => num.toString().length));
 
-        const range = document.createElement('range-input');
-        range.id = filterState.name;
-        range.setAttributes(filterState.range[0], filterState.range[1], filterState.range[1]);
+        const container = document.createElement('div');
+        container.className = 'range-container';
 
-        const valueInputElement = document.createElement('input');
-        valueInputElement.type = 'text';
-        valueInputElement.min = filterState.range[0];
-        valueInputElement.max = filterState.range[1];
-        valueInputElement.value = range.value;
+        const minInput = document.createElement('input');
+        minInput.className = 'range-value';
+        minInput.type = 'text';
+        minInput.min = filterState.range[0];
+        minInput.max = filterState.range[1];
+        minInput.value = filterState.range[0];
+        minInput.style.width = `${maxCharWidth}ch`;
+        minInput.addEventListener('input', (e) => this.handleInputChange(e, true));
 
-        valueInputElement.id = filterState.name + '-value';
-        valueInputElement.classList.add('range-value');
-        const maxValueLength = filterState.range[1].toString().length;
-        valueInputElement.style.width = `${maxValueLength}ch`;
+        const rangeElement = document.createElement('range-input');
+        rangeElement.id = filterState.name;
+        rangeElement.setAttributes(...filterState.range, ...filterState.range);
+        rangeElement.addEventListener('input-change', (e) => this.updateInputs(e, minInput, maxInput));
 
-        valueInputElement.addEventListener('input', (e) => {
-            if (e.target.value < filterState.range[0]) {
-                e.target.value = filterState.range[0];
-            } else if (e.target.value > filterState.range[1]) {
-                e.target.value = filterState.range[1];
-            }
-            console.log('input:', e.target.value);
-            range.dispatchEvent(new CustomEvent('value-change', { detail: e.target.value }));
-        });
+        const maxInput = document.createElement('input');
+        maxInput.className = 'range-value';
+        maxInput.type = 'text';
+        maxInput.min = filterState.range[0];
+        maxInput.max = filterState.range[1];
+        maxInput.value = filterState.range[1];
+        maxInput.style.width = `${maxCharWidth}ch`;
+        maxInput.addEventListener('input', (e) => this.handleInputChange(e, false));
 
+        container.append(minInput, rangeElement, maxInput);
+        this.shadowRoot.appendChild(container);
+    }
 
+    handleInputChange(event, isMin) {
+        const input = event.target;
+        const range = this.shadowRoot.querySelector('range-input');
+        let value = parseInt(input.value);
 
-        range.addEventListener('input-change', (e) => {
-            const value = e.detail;
-            //console.log('input:', value);
-            valueInputElement.value = value;
-        });
+        if (isNaN(value)) {
+            value = isMin ? range.min : range.max;
+            input.value = value;
+        }
 
-        labelElement.appendChild(range);
-        labelElement.appendChild(valueInputElement);
+        const clamped = Math.max(range.min, Math.min(value, range.max));
+        if (clamped !== value) {
+            input.value = clamped;
+            value = clamped;
+        }
 
-        this.shadowRoot.appendChild(labelElement);
+        const eventType = isMin ? 'min-value-change' : 'max-value-change';
+        range.dispatchEvent(new CustomEvent(eventType, {
+            detail: { [isMin ? 'minValue' : 'maxValue']: value }
+        }));
+    }
+
+    updateInputs(event, minInput, maxInput) {
+        const { minValue, maxValue } = event.detail;
+        minInput.value = minValue;
+        maxInput.value = maxValue;
     }
 }
 

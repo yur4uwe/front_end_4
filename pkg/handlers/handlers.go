@@ -64,7 +64,7 @@ func Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	products, err := readProducts(page)
+	products, total_pages, err := readProducts(page)
 	if err != nil {
 		fmt.Println("Products handler error:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -74,7 +74,10 @@ func Products(w http.ResponseWriter, r *http.Request) {
 	response.Init().
 		SetStatus("success").
 		SetCode(http.StatusOK).
-		SetData(products).
+		SetData(map[string]any{
+			"pages":    total_pages,
+			"products": products,
+		}).
 		Send(w)
 }
 
@@ -94,7 +97,7 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	products, err := readProducts(page)
+	products, total_pages, err := readProducts(page)
 	if err != nil {
 		fmt.Println("Apply filters parse products error:", err)
 		http.Error(w, "Internal Server error", http.StatusInternalServerError)
@@ -115,6 +118,9 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 	response.Init().
 		SetStatus("success").
 		SetCode(http.StatusOK).
-		SetData(products).
+		SetData(map[string]interface{}{
+			"pages":    total_pages,
+			"products": products,
+		}).
 		Send(w)
 }

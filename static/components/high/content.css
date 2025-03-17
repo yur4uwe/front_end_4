@@ -1,11 +1,13 @@
 :host {
     display: flex;
+    flex-direction: column;
     padding: 10px;
     text-align: center;
     color: var(--text-color, black);
     border-radius: 10px;
     /* border: 2px solid var(--text-color, black); */
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    max-width: calc(200px * 5 + 50px);
 }
 
 #header {
@@ -18,7 +20,6 @@
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-
 }
 
 img {
@@ -27,4 +28,29 @@ img {
     object-fit: contain;
     border-radius: 5px;
     border: 1px solid var(--text-color, black);
+}
+
+#pages {
+    margin-top: 10px;
+}
+
+.page-nav {
+    background: transparent;
+    color: var(--text-color, black);
+    border: 1px solid var(--text-color, black);
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.page-nav:hover {
+    background: var(--text-color, black);
+    color: var(--bg-color-1);
+}
+
+.active {
+    background: var(--text-color, black);
+    color: var(--bg-color-1);
 }

@@ -39,24 +39,24 @@ func getPhotoLocation(name string) string {
 	return "/photos/" + name
 }
 
-func readProducts(page int) ([]Product, error) {
+func readProducts(page int) ([]Product, int, error) {
 	file, err := os.ReadFile("../data/products.json")
 	if err != nil {
 		fmt.Println("Products handler, reading products.json reading error:", err)
-		return nil, fmt.Errorf("reading products.json reading error: %w", err)
+		return nil, -1, fmt.Errorf("reading products.json reading error: %w", err)
 	}
 
 	var products []Product
 	err = json.Unmarshal(file, &products)
 	if err != nil {
 		fmt.Println("Products handler, unmarshalling products.json error:", err)
-		return nil, fmt.Errorf("unmarshalling products.json error: %w", err)
+		return nil, -1, fmt.Errorf("unmarshalling products.json error: %w", err)
 	}
 
 	page_len := 20
 
 	var products_page []Product
-	if len(products) > page_len {
+	if len(products)-(page*page_len) > page_len {
 		products_page = products[(page_len * (page - 1)) : page_len*page]
 	} else {
 		products_page = products[(page_len * (page - 1)):]
@@ -66,5 +66,5 @@ func readProducts(page int) ([]Product, error) {
 		products_page[i].Photo = getPhotoLocation(product.Photo)
 	}
 
-	return products_page, nil
+	return products_page, int(len(products)/page_len + 1), nil
 }

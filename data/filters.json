@@ -12,7 +12,7 @@
         "name": "Category",
         "type": "checkbox",
         "options": [
-            "Electronics",
+            "Italian",
             "Clothing",
             "Home",
             "Kitchen"

@@ -3,12 +3,17 @@
  * @typedef {{id: number, name: string, price: number, description: string, photo: string}} Product
  */
 
+import API from "../../api/requester.js";
+
 class Content extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
-        this.shadowRoot.innerHTML = `<div id="content"></div>`;
+        this.shadowRoot.innerHTML = `
+        <div id="content"></div>
+        <nav id="pages"></nav>
+        `;
     }
 
     async loadStyles() {
@@ -19,11 +24,16 @@ class Content extends HTMLElement {
         this.shadowRoot.appendChild(styleElement);
     }
 
+    connectedCallback() {
+        this.navigateToPage(1, 1);
+    }
+
     /**
      * 
-     * @param {Product[]} products 
+     * @param {Product[]} products
+     * @param {number} total_pages
      */
-    setProducts(products) {
+    setProducts(products, total_pages, currentPage = 1) {
         const contentDiv = this.shadowRoot.getElementById("content");
         contentDiv.innerHTML = "";
 
@@ -46,11 +56,6 @@ class Content extends HTMLElement {
 
             infoContainer.appendChild(priceElement);
 
-            const description = document.createElement('p');
-            description.textContent = product.description;
-
-            infoContainer.appendChild(description);
-
             const buttonContainer = document.createElement('div');
             buttonContainer.id = "button-container";
 
@@ -71,12 +76,79 @@ class Content extends HTMLElement {
             buttonContainer.appendChild(addToCartButton);
 
             productElementShadowRoot.appendChild(infoContainer);
-            
+
             productElementShadowRoot.appendChild(buttonContainer);
 
             contentDiv.appendChild(productElement);
         });
+
+        const pagesBox = this.shadowRoot.getElementById("pages")
+        if (!pagesBox) {
+            console.error("Pages box not found");
+            return;
+        }
+        pagesBox.innerHTML = "";
+        const appendPageNav = (content, listener = null) => {
+            const pageNav = document.createElement('button');
+            pageNav.id = `page-${content}`;
+            pageNav.classList.add("page-nav");
+            pageNav.textContent = content;
+            if (listener) {
+                pageNav.addEventListener('click', listener);
+            } else {
+                pageNav.addEventListener('click', () => {
+                    console.log(`Going to page ${content}`);
+                    this.navigateToPage(content, total_pages);
+                });
+            }
+            pagesBox.appendChild(pageNav);
+        };
+        appendPageNav("<<", () => {
+            console.log("Going to first page");
+            this.navigateToPage(1, total_pages);
+        });
+        appendPageNav("<", () => {
+            console.log("Going to previous page");
+            this.navigateToPage(currentPage - 1, total_pages);
+        });
+        for (let i = 0; i < total_pages && i <= 6; i++) {
+            appendPageNav(i + 1);
+        }
+        appendPageNav(">", () => {
+            console.log("Going to next page");
+            this.navigateToPage(currentPage + 1, total_pages);
+        });
+        appendPageNav(">>", () => {
+            console.log("Going to last page");
+            this.navigateToPage(total_pages, total_pages);
+        });
     }
+
+    navigateToPage(page, total_pages) {
+        console.log(`Navigating to page ${page}`);
+        if (page < 1) {
+            return;
+        } else if (page > total_pages) {
+            return;
+        }
+
+        API.requestBuilder()
+            .method(API.Methods.GET)
+            .url("/api/products")
+            .q_params({ page: page })
+            .send()
+            .then(response => {
+                if (response.status === "error") {
+                    console.error(response.error);
+                    return;
+                }
+                this.setProducts(response.data.products, response.data.pages, page);
+
+                this.shadowRoot.querySelectorAll(".page-nav").forEach(nav => nav.classList.remove("active"));
+                this.shadowRoot.getElementById(`page-${page}`).classList.add("active");
+            });
+    }
+
 }
 
 customElements.define('content-component', Content); 

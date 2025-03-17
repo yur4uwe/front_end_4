@@ -4,7 +4,7 @@
     padding: 20px;
 }
 
-div {
+.store-container {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -15,9 +15,49 @@ filters-component {
     padding: 10px;
     margin-right: 5px;
     max-width: 300px;
+
+    animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 content-component {
-    width: 100%;
+    width: 80%;
     margin-left: 5px;
+
+    animation: appear 1s ease-out;
+}
+
+@keyframes appear {
+    from {
+        scale: 0;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .store-container {
+        flex-direction: row;
+    }
+
+    filters-component {
+        display: none;
+    }
+
+    content-component {
+        width: 100%;
+        margin-left: 0;
+    }
 }

@@ -37,6 +37,18 @@ class Filters extends HTMLElement {
     }
 
     connectedCallback() {
+        API.requestBuilder()
+            .method(API.Methods.GET)
+            .url("/api/filters")
+            .send()
+            .then(response => {
+                if (response.status === "error") {
+                    console.error(response.error);
+                    return;
+                }
+                this.setFilters(response.data)
+            });
+
         const clearFilters = this.shadowRoot.getElementById("clear-filters");
         clearFilters.addEventListener("click", () => {
             console.log("Clearing filters");

@@ -12,9 +12,9 @@
 :host(:hover) {
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    bottom: 10px;
+    scale: 1.05;
 
-    transition: bottom 0.5s, box-shadow 0.5s, position 0.5s;
+    transition: scale 0.5s, box-shadow 0.5s, position 0.5s;
 }
 
 img {
@@ -31,6 +31,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 60%;
 }
 
 #info-container {
@@ -39,7 +40,7 @@ img {
 }
 
 #button-container {
-    flex-grow: 1;   
+    flex-grow: 1;
     display: flex;
     justify-content: end;
     align-items: end;
@@ -54,4 +55,11 @@ button {
     font-size: 1rem;
     margin: 0 5px;
     cursor: pointer;
+}
+
+button:hover {
+    background: var(--text-color, black);
+    color: var(--background-color, white);
+
+    transition: background 0.5s, color 0.5s;
 }

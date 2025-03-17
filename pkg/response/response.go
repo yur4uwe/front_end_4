@@ -9,7 +9,7 @@ import (
 type Response struct {
 	Status  string
 	Code    int
-	Data    interface{}
+	Data    any
 	Error   *string
 	Message string
 }
@@ -57,7 +57,7 @@ func (r *Response) SetCode(code int) *Response {
 	return r
 }
 
-func (r *Response) SetData(data interface{}) *Response {
+func (r *Response) SetData(data any) *Response {
 	r.Data = data
 	return r
 }
@@ -70,7 +70,7 @@ func (r *Response) GetCode() int {
 	return r.Code
 }
 
-func (r *Response) GetData() interface{} {
+func (r *Response) GetData() any {
 	return r.Data
 }
 

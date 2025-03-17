@@ -89,5 +89,341 @@
         "price": -320,
         "description": "le rinocherola katusita",
         "photo": "el_cacto_hipopotamo.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Smurf Cat",
+        "price": -720,
+        "description": "Surreal meme battle between blue feline and pink pachyderm",
+        "photo": "smurf_cat.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Amogus",
+        "price": -420,
+        "description": "Suspicious crewmate with drip posing suspiciously",
+        "photo": "amogus_drip.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Gigachad",
+        "price": -999,
+        "description": "Ultra-masculine 3D-modeled sigma male",
+        "photo": "gigachad_ultra.jpg"
+    },
+    {
+        "id": 17,
+        "name": "Ugandan Knuckles",
+        "price": -666,
+        "description": "Crustacean-looking VRChat character asking 'do you know da wae'",
+        "photo": "ugandan_knuckles.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Strawberry Elephant",
+        "price": -850,
+        "description": "Pink pachyderm with fruit pattern and exaggerated features",
+        "photo": "strawberry_elephant.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Grimace Shake",
+        "price": -350,
+        "description": "Purple McDonald's shake causing chaotic bathroom transformations",
+        "photo": "grimace_shake.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Lightskin Stare",
+        "price": -250,
+        "description": "Slightly aggressive attractive gaze from mixed-race individuals",
+        "photo": "lightskin_stare.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Metal Pipe Falling",
+        "price": -950,
+        "description": "3D-rendered industrial pipe descending with clanging sound effect",
+        "photo": "metal_pipe_falling.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Backrooms",
+        "price": -890,
+        "description": "Endless yellow liminal office space with fluorescent lighting",
+        "photo": "backrooms_level0.jpg"
+    },
+    {
+        "id": 23,
+        "name": "Ankha Zone",
+        "price": -750,
+        "description": "",
+        "photo": "ankha_zone.jpg"
+    },
+    {
+        "id": 24,
+        "name": "T-Pose",
+        "price": -325,
+        "description": "Default animation pose asserting dominance in digital spaces",
+        "photo": "tpose_dominance.jpg"
+    },
+    {
+        "id": 25,
+        "name": "Freddy Fazbear",
+        "price": -675,
+        "description": "Animatronic bear with endoskeleton visible through rotting costume",
+        "photo": "freddy_fazbear.jpg"
+    },
+    {
+        "id": 27,
+        "name": "Quandale Dingle",
+        "price": -450,
+        "description": "Absurdist cartoon character with elongated face and chaotic energy",
+        "photo": "quandale_dingle.jpg"
+    },
+    {
+        "id": 28,
+        "name": "Shadow Wizard Money Gang",
+        "price": -666,
+        "description": "Occult-themed rap collective with glowing spell effects",
+        "photo": "shadow_wizard_gang.jpg"
+    },
+    {
+        "id": 29,
+        "name": "Skibidi Toilet",
+        "price": -950,
+        "description": "Animated singing head emerging from toilet bowl",
+        "photo": "skibidi_toilet.jpg"
+    },
+    {
+        "id": 31,
+        "name": "Goon Cave",
+        "price": -880,
+        "description": "Chaotic room filled with anime posters and empty energy drinks",
+        "photo": "goon_cave.jpg"
+    },
+    {
+        "id": 32,
+        "name": "Axel in Harlem",
+        "price": -770,
+        "description": "Viral dance video frame with distinctive yellow jacket",
+        "photo": "axel_harlem.jpg"
+    },
+    {
+        "id": 33,
+        "name": "Morbin Time",
+        "price": -350,
+        "description": "Jared Leto as Morbius with glowing red eyes",
+        "photo": "morbius_moment.jpg"
+    },
+    {
+        "id": 34,
+        "name": "Zesty Pose",
+        "price": -250,
+        "description": "Flamboyant hand gestures with exaggerated facial expression",
+        "photo": "zesty_gesture.jpg"
+    },
+    {
+        "id": 35,
+        "name": "Wholesome Chungus",
+        "price": -425,
+        "description": "Obese Bugs Bunny giving thumbs up",
+        "photo": "wholesome_chungus.jpg"
+    },
+    {
+        "id": 38,
+        "name": "Griddy Dance",
+        "price": -650,
+        "description": "Football touchdown celebration with leg movements",
+        "photo": "griddy_dance.jpg"
+    },
+    {
+        "id": 39,
+        "name": "F in the Chat",
+        "price": -150,
+        "description": "Call of Duty 'Press F to Pay Respects' screenshot",
+        "photo": "f_chat.jpg"
+    },
+    {
+        "id": 40,
+        "name": "Bing Chilling",
+        "price": -480,
+        "description": "John Cena eating ice cream with Chinese text overlay",
+        "photo": "bing_chilling.jpg"
+    },
+    {
+        "id": 41,
+        "name": "I Show Speed",
+        "price": -720,
+        "description": "Streamer's signature wide-eyed reaction face",
+        "photo": "speed_face.jpg"
+    },
+    {
+        "id": 42,
+        "name": "Kumalala",
+        "price": -330,
+        "description": "Viral desert dance with rhythmic sand movements",
+        "photo": "kumalala_dance.jpg"
+    },
+    {
+        "id": 43,
+        "name": "Delulu Cat",
+        "price": -410,
+        "description": "Anime-style cat with spiraled eyes and fantasy background",
+        "photo": "delulu_cat.jpg"
+    },
+    {
+        "id": 45,
+        "name": "Mewing Pose",
+        "price": -275,
+        "description": "Side profile comparison showing jawline improvement",
+        "photo": "mewing_comparison.jpg"
+    },
+    {
+        "id": 46,
+        "name": "Social Credit",
+        "price": -600,
+        "description": "Chinese flag with plummeting stock arrow meme",
+        "photo": "social_credit.jpg"
+    },
+    {
+        "id": 47,
+        "name": "Whopper Whopper",
+        "price": -150,
+        "description": "Burger King mascot multiplied in surreal pattern",
+        "photo": "whopper_army.jpg"
+    },
+    {
+        "id": 48,
+        "name": "Sisyphus Boulder",
+        "price": -999,
+        "description": "Greek myth figure struggling with giant stone meme",
+        "photo": "sisyphus_modern.jpg"
+    },
+    {
+        "id": 49,
+        "name": "Oceangate Titan",
+        "price": -950,
+        "description": "Submersible controller with Logitech gamepad meme",
+        "photo": "titan_controller.jpg"
+    },
+    {
+        "id": 50,
+        "name": "Nair Incident",
+        "price": -850,
+        "description": "Screenshot of viral buttock waxing complaint tweet",
+        "photo": "nair_tweet.jpg"
+    },
+    {
+        "id": 51,
+        "name": "Family Guy Surfers",
+        "price": -750,
+        "description": "Split-screen meme combining cartoon with mobile game",
+        "photo": "familyguy_subway.jpg"
+    },
+    {
+        "id": 53,
+        "name": "Surgeon Wojak",
+        "price": -670,
+        "description": "Medical mask-wearing meme character holding scalpel",
+        "photo": "surgeon_wojak.jpg"
+    },
+    {
+        "id": 55,
+        "name": "GTA 6 Hype",
+        "price": -999,
+        "description": "Blurry trailer frame with exaggerated zoom enhancements",
+        "photo": "gta6_leak.jpg"
+    },
+    {
+        "id": 58,
+        "name": "Biggest Bird",
+        "price": -770,
+        "description": "Sesame Street character photoshopped into giant monster",
+        "photo": "kaiju_bird.jpg"
+    },
+    {
+        "id": 60,
+        "name": "Josh Hutcherson Coffin",
+        "price": -666,
+        "description": "Hunger Games actor dancing with Ghanaian pallbearers",
+        "photo": "josh_coffin.jpg"
+    },
+    {
+        "id": 62,
+        "name": "Based Wojak",
+        "price": -450,
+        "description": "Chad-like character giving thumbs up with sunglasses",
+        "photo": "based_wojak.jpg"
+    },
+    {
+        "id": 68,
+        "name": "Top G Pose",
+        "price": -999,
+        "description": "Controversial influencer in cigar-smoking power stance",
+        "photo": "tate_pose.jpg"
+    },
+    {
+        "id": 69,
+        "name": "Ambatukam Face",
+        "price": -300,
+        "description": "Viral strained facial expression from NSFW video",
+        "photo": "ambatukam.jpg"
+    },
+    {
+        "id": 72,
+        "name": "Sin City Edit",
+        "price": -550,
+        "description": "Frank Miller-style comic filter over depression memes",
+        "photo": "sincity_monday.jpg"
+    },
+    {
+        "id": 74,
+        "name": "John Pork Call",
+        "price": -880,
+        "description": "AI-generated pig-man with phone receiver",
+        "photo": "john_pork.jpg"
+    },
+    {
+        "id": 76,
+        "name": "Glizzy Gladiator",
+        "price": -250,
+        "description": "Hot dog mascot in Roman armor",
+        "photo": "glizzy_warrior.jpg"
+    },
+    {
+        "id": 81,
+        "name": "Fortnite Pass",
+        "price": -450,
+        "description": "Battle pass menu screen with highlighted skins",
+        "photo": "fortnite_pass.jpg"
+    },
+    {
+        "id": 82,
+        "name": "All My Fellas",
+        "price": -350,
+        "description": "Crowd of identical men pointing rhythmically",
+        "photo": "fellas_point.jpg"
+    },
+    {
+        "id": 83,
+        "name": "Cringe Cat",
+        "price": -200,
+        "description": "Feline making uncomfortable eye contact",
+        "photo": "cringe_cat.jpg"
+    },
+    {
+        "id": 84,
+        "name": "NNN Calendar",
+        "price": -100,
+        "description": "November grid with increasingly chaotic X marks",
+        "photo": "nut_november.jpg"
+    },
+    {
+        "id": 87,
+        "name": "Miss Girl",
+        "price": -450,
+        "description": "TikTok creator doing iconic hair flip gesture",
+        "photo": "hit_or_miss.jpg"
     }
 ]

@@ -115,8 +115,6 @@ class Range extends HTMLElement {
     }
 
     changeSelectedWidthByValue() {
-        console.log(this.value, this.max);
-
         const thumb = this.shadowRoot.getElementById('thumb');
         const selected = this.shadowRoot.getElementById('selected');
         const track = this.shadowRoot.getElementById('track');

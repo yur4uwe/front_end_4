@@ -6,10 +6,13 @@ class Card extends HTMLElement {
     }
 
     async loadStyles() {
-        const style = await fetch('/static/components/low/card.css');
-        const styleText = await style.text();
+        if (!Card.styleContent) {
+            const style = await fetch('/static/components/low/card.css');
+            Card.styleContent = await style.text();
+        }
+
         const styleElement = document.createElement('style');
-        styleElement.textContent = styleText;
+        styleElement.textContent = Card.styleContent;
         this.shadowRoot.appendChild(styleElement);
     }
 

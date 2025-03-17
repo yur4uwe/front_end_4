@@ -21,6 +21,6 @@ func main() {
 
 	handler := middleware.LogRequest(http.DefaultServeMux)
 
-	fmt.Println("Server is running on port 8080")
-	http.ListenAndServe(":8080", handler)
+	fmt.Println("Server is running on port 8000")
+	http.ListenAndServe(":8000", handler)
 }

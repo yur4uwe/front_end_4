@@ -34,6 +34,13 @@ class CheckboxFilter extends HTMLElement {
         return checkboxFilters;
     }
 
+    clearFilter() {
+        console.log('clearing checkboxes');
+        this.shadowRoot.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    }
+
     /**
      *  
      * @param {Filter} filterState 

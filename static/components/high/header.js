@@ -1,9 +1,20 @@
+import API from '../../api/requester.js';
+
 class Header extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
-        this.shadowRoot.innerHTML += `<h1>Buy Your Brainrot</h1>`;
+        this.shadowRoot.innerHTML += `
+        <div id="main-header">
+            <h1>Buy Your Brainrot</h1>
+            <nav>
+                <a href="/home"><img src="/static/img/home.png"></a>
+                <a href="/cart"><img src="/static/img/cart.png"></a>
+            </nav>    
+        </div>
+        <div id="img-header"><img src="/photos/header_2.png"></div>
+        `;
     }
 
     async loadStyles() {

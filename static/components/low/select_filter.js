@@ -33,6 +33,13 @@ class SelectFilter extends HTMLElement {
         return selectFilters;
     }
 
+    clearFilter() {
+        console.log('clearing select');
+        this.shadowRoot.querySelectorAll("select").forEach(select => {
+            select.selectedIndex = 0;
+        });
+    }
+
     /**
      *  
      * @param {Filter} filterState 

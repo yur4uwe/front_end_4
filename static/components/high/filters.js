@@ -7,7 +7,6 @@ import "../low/select_filter.js"
  * @typedef {{name: string, type: string, options: string[], range: number[]}} Filter
  * @typedef {{[key: string]: string | number | boolean}} FilterState
  */
-
 class Filters extends HTMLElement {
     constructor() {
         super();
@@ -40,15 +39,15 @@ class Filters extends HTMLElement {
     connectedCallback() {
         const clearFilters = this.shadowRoot.getElementById("clear-filters");
         clearFilters.addEventListener("click", () => {
+            console.log("Clearing filters");
             const filterForm = this.shadowRoot.getElementById("filter-form");
             filterForm.reset();
 
-            const rangeFilters = Array.from(this.shadowRoot.querySelectorAll('input[type="range"]'));
-            rangeFilters.forEach(filter => {
-                const valueSpanElement = this.shadowRoot.getElementById(filter.id + '-value');
-                valueSpanElement.innerHTML = filter.max;
-                filter.value = filter.max;
-            });
+            const filters = this.shadowRoot.querySelectorAll('select-filter, checkbox-filter, range-filter');
+            console.log(filters.length);
+            filters.forEach(filter => filter.clearFilter());
+
+            this.submitFilters(new Event('submit'));
         });
     }
 

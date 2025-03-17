@@ -33,6 +33,16 @@ class RangeFilter extends HTMLElement {
         return rangeFilters;
     }
 
+    clearFilter() {
+        this.shadowRoot.querySelectorAll("range-input").forEach(range => {
+            console.log('clearing range');
+            range.value = range.max;
+            range.changeSelectedWidthByValue();
+
+            range.dispatchEvent(new CustomEvent('input-change', { detail: range.value }));
+        });
+    }
+
     /**
      *  
      * @param {Filter} filterState 

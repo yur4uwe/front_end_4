@@ -27,8 +27,6 @@ class Range extends HTMLElement {
         this.max = max;
         this.value = value;
 
-
-
         this.changeSelectedWidthByValue();
     }
 
@@ -85,7 +83,7 @@ class Range extends HTMLElement {
             selected.style.left = `${selectedWidth / 2 - 1}px`;
         }
 
-        const value = Math.round((selectedWidth / trackWidth) * this.max);
+        const value = Math.round((selectedWidth / trackWidth) * (this.max - this.min) + this.min);
 
         if (value > this.max) {
             this.value = this.max;
@@ -111,7 +109,6 @@ class Range extends HTMLElement {
      * @param {CustomEvent} event 
      */
     handleValueChange(event) {
-        console.log('value change:', event.detail);
         this.value = event.detail;
 
         this.changeSelectedWidthByValue();

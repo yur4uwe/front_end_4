@@ -51,7 +51,28 @@ class Content extends HTMLElement {
 
             infoContainer.appendChild(description);
 
+            const buttonContainer = document.createElement('div');
+            buttonContainer.id = "button-container";
+
+            const buyButton = document.createElement('button');
+            buyButton.textContent = "Buy";
+            buyButton.addEventListener('click', () => {
+                console.log(`Buying ${product.name}`);
+            });
+
+            buttonContainer.appendChild(buyButton);
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = "Add to cart";
+            addToCartButton.addEventListener('click', () => {
+                console.log(`Adding ${product.name} to cart`);
+            });
+
+            buttonContainer.appendChild(addToCartButton);
+
             productElementShadowRoot.appendChild(infoContainer);
+            
+            productElementShadowRoot.appendChild(buttonContainer);
 
             contentDiv.appendChild(productElement);
         });

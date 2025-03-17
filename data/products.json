@@ -2,91 +2,91 @@
     {
         "id": 1,
         "name": "Bombardiro Crocodilo",
-        "price": 100,
+        "price": -450,
         "description": "un alligatore che bombarda i bambini di Gaza e della Palestina e non crede in Allah e ama le bombe",
         "photo": "bombardiro_crocodilo.jpg"
     },
     {
         "id": 2,
         "name": "BomBomBini Guzzini",
-        "price": 200,
+        "price": -400,
         "description": "fratello di Bombardiro Crocodilo",
         "photo": "bombombini_guzzini.jpg"
     },
     {
         "id": 3,
         "name": "Brr Brr Patapim",
-        "price": 0,
+        "price": -550,
         "description": "",
         "photo": "brr_brr_patapim.jpg"
     },
     {
         "id": 4,
         "name": "Le Bobrito De Curvini",
-        "price": 0,
+        "price": -230,
         "description": "",
         "photo": "curvito_de_bobrito.jpg"
     },
     {
         "id": 5,
         "name": "Frigo Camelo",
-        "price": 0,
+        "price": -670,
         "description": "",
         "photo": "frigo_camelo.jpg"
     },
     {
         "id": 6,
         "name": "Girafa Celeste",
-        "price": 0,
+        "price": -510,
         "description": "",
         "photo": "girafa_celeste.jpg"
     },
     {
         "id": 7,
         "name": "la Negrito Antarctido",
-        "price": 0,
+        "price": -100,
         "description": "",
         "photo": "la_negrilo_antarctido.jpg"
     },
     {
         "id": 8,
         "name": "Lirili Larila",
-        "price": 0,
+        "price": -670,
         "description": "",
         "photo": "lirili_larila.jpg"
     },
     {
         "id": 9,
         "name": "Tralalelo Tralala",
-        "price": 0,
+        "price": -1000,
         "description": "Porquo dio porqua la",
         "photo": "tralalelo_tralala.jpg"
     },
     {
         "id": 10,
         "name": "Trippi Tropa",
-        "price": 0,
+        "price": -430,
         "description": "",
         "photo": "tripi_tropa.jpg"
     },
     {
         "id": 11,
-        "name": "Trulimero Trulicini",
-        "price": 0,
+        "name": "Trulimero Trulicina",
+        "price": -120,
         "description": "",
         "photo": "trulimero_trulichina.jpg"
     },
     {
         "id": 12,
         "name": "Cavallo Navallo",
-        "price": 0,
+        "price": -610,
         "description": "",
         "photo": "ya_xz.jpg"
     },
     {
         "id": 13,
         "name": "El Cacto Hipopotamo",
-        "price": 0,
+        "price": -320,
         "description": "le rinocherola katusita",
         "photo": "el_cacto_hipopotamo.jpg"
     }

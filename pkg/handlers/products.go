@@ -39,7 +39,7 @@ func getPhotoLocation(name string) string {
 	return "/photos/" + name
 }
 
-func readProducts(page int) ([]Product, int, error) {
+func readProducts(page_len int) ([]Product, int, error) {
 	file, err := os.ReadFile("../data/products.json")
 	if err != nil {
 		fmt.Println("Products handler, reading products.json reading error:", err)
@@ -53,18 +53,41 @@ func readProducts(page int) ([]Product, int, error) {
 		return nil, -1, fmt.Errorf("unmarshalling products.json error: %w", err)
 	}
 
-	page_len := 20
+	return products, int((len(products)) / page_len), nil
+}
 
-	var products_page []Product
-	if len(products)-(page*page_len) > page_len {
-		products_page = products[(page_len * (page - 1)) : page_len*page]
-	} else {
-		products_page = products[(page_len * (page - 1)):]
+func filterProducts(filters map[string]interface{}, products []Product) []Product {
+	var filtered_products []Product
+
+	checkbox_filters := filters["checkboxFilters"]
+	range_filters := filters["rangeFilters"].(map[string]interface{})
+	select_filters := filters["selectFilters"]
+
+	fmt.Println("Checkbox filters:", checkbox_filters)
+	fmt.Println("Range filters:", range_filters)
+	fmt.Println("Select filters:", select_filters)
+
+	for _, product := range products {
+		var pass bool = true
+		// Checkbox filters unimplemented
+		// Range filters implementation
+		for key, value := range range_filters {
+			if key == "Price" {
+				rangeFilter := value.(map[string]interface{})
+				minValue := float64(rangeFilter["min"].(float64))
+				maxValue := float64(rangeFilter["max"].(float64))
+				if product.Price < minValue || product.Price > maxValue {
+					pass = false
+					break
+				}
+			}
+		}
+		// Select filters unimplemented
+
+		if pass {
+			filtered_products = append(filtered_products, product)
+		}
 	}
 
-	for i, product := range products_page {
-		products_page[i].Photo = getPhotoLocation(product.Photo)
-	}
-
-	return products_page, int((len(products)) / page_len), nil
+	return filtered_products
 }

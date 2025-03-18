@@ -14,6 +14,8 @@ class Content extends HTMLElement {
         <div id="content"></div>
         <nav id="pages"></nav>
         `;
+
+        document.addEventListener('filters-applied', (e) => this.navigateToPage(1, 1, e.detail));
     }
 
     async loadStyles() {
@@ -84,12 +86,22 @@ class Content extends HTMLElement {
             contentDiv.appendChild(productElement);
         });
 
+
+        this.appendPageNavButtons(total_pages, currentPage);
+    }
+
+    appendPageNavButtons(total_pages, currentPage = 1) {
         const pagesBox = this.shadowRoot.getElementById("pages")
         if (!pagesBox) {
             console.error("Pages box not found");
             return;
         }
         pagesBox.innerHTML = "";
+
+        if (total_pages <= 1) {
+            return;
+        }
+
         const appendPageNav = (content, listener = null) => {
             const pageNav = document.createElement('button');
             pageNav.id = `page-${content}`;
@@ -126,7 +138,7 @@ class Content extends HTMLElement {
         });
     }
 
-    navigateToPage(page, total_pages) {
+    navigateToPage(page, total_pages, applyFilters = true) {
         console.log(`Navigating to page ${page}`);
         if (page < 1) {
             return;
@@ -134,10 +146,14 @@ class Content extends HTMLElement {
             return;
         }
 
+        const contentWidth = this.shadowRoot.getElementById("content").clientWidth;
+        const columnsNum = Math.floor(Math.floor(contentWidth / 200));
+
         API.requestBuilder()
-            .method(API.Methods.GET)
+            .method(API.Methods.PUT)
             .url("/api/products")
-            .q_params({ page: page })
+            .q_params({ page: page, page_len: 5 * columnsNum, apply_filters: applyFilters })
+            .body(JSON.parse(localStorage.getItem("filters")))
             .send()
             .then(response => {
                 if (response.status === "error") {

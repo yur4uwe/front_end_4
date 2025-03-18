@@ -52,11 +52,12 @@ func Filters(w http.ResponseWriter, r *http.Request) {
 }
 
 func Products(w http.ResponseWriter, r *http.Request) {
-	page_str := readQueryParams(r)["page"][0]
+	params := readQueryParams(r)
+
+	page_str := params["page"][0]
 	if page_str == "" {
 		page_str = "1"
 	}
-
 	page, err := strconv.Atoi(page_str)
 	if err != nil {
 		fmt.Println("Products handler, page query parameter to integer cast error:", err)
@@ -64,78 +65,57 @@ func Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	products, total_pages, err := readProducts(page)
+	page_len, err := strconv.Atoi(params["page_len"][0])
+	if err != nil {
+		fmt.Println("Products handler, page_len query parameter to integer cast error:", err)
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+	fmt.Println("Page len:", page_len)
+
+	apply_filters := params["apply_filters"][0] == "true"
+	fmt.Println("Apply filters:", apply_filters)
+
+	products, total_pages, err := readProducts(page_len)
 	if err != nil {
 		fmt.Println("Products handler error:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
+	var filters map[string]interface{}
+	err = json.NewDecoder(r.Body).Decode(&filters)
+	if err != nil {
+		fmt.Println("Products handler, body parse error:", err)
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+	fmt.Println("Filters applied:", filters)
+	var filtered_products []Product
+	if apply_filters {
+		filtered_products = filterProducts(filters, products)
+
+		total_pages_float := float64(len(filtered_products)) / float64(page_len)
+		total_pages = int(total_pages_float)
+		remainder := total_pages_float - float64(total_pages)
+
+		if len(products)%page_len != 0 || remainder > 0 {
+			total_pages++
+		}
+	} else {
+		filtered_products = products
+	}
+
+	if page*page_len > len(filtered_products) {
+		filtered_products = filtered_products[(page-1)*page_len:]
+	} else {
+		filtered_products = filtered_products[(page-1)*page_len : page*page_len]
+	}
+
 	response.Init().
 		SetStatus("success").
 		SetCode(http.StatusOK).
 		SetData(map[string]any{
-			"pages":    total_pages,
-			"products": products,
-		}).
-		Send(w)
-}
-
-func ApplyFilters(w http.ResponseWriter, r *http.Request) {
-	page, err := parsePage(r.URL.Query().Get("page"))
-	if err != nil {
-		fmt.Println("Apply filters page parse error: ", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
-
-	var filters map[string]interface{}
-	err = json.NewDecoder(r.Body).Decode(&filters)
-	if err != nil {
-		fmt.Println("Apply filters body parse error:", err)
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
-	}
-
-	products, total_pages, err := readProducts(page)
-	if err != nil {
-		fmt.Println("Apply filters parse products error:", err)
-		http.Error(w, "Internal Server error", http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Println("Products:", products)
-	fmt.Println("Filters:", filters)
-
-	checkbox_filters := filters["checkboxFilters"]
-	range_filters := filters["rangeFilters"].(map[string]map[string]int32)
-	select_filters := filters["selectFilters"]
-
-	fmt.Println("Checkbox filters:", checkbox_filters)
-	fmt.Println("Range filters:", range_filters)
-	fmt.Println("Select filters:", select_filters)
-
-	var filtered_products []Product
-
-	// Filtering products
-	for _, product := range products {
-		// Checkbox filters unimplemented
-		// Range filters implementation
-		for key, value := range range_filters {
-			if key == "price" {
-				if product.Price < float64(value["min"]) || product.Price > float64(value["max"]) {
-					filtered_products = append(filtered_products, product)
-					break
-				}
-			}
-		}
-		// Select filters unimplemented
-	}
-
-	response.Init().
-		SetStatus("success").
-		SetCode(http.StatusOK).
-		SetData(map[string]interface{}{
 			"pages":    total_pages,
 			"products": filtered_products,
 		}).

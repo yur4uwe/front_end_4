@@ -59,7 +59,7 @@ class Filters extends HTMLElement {
             console.log(filters.length);
             filters.forEach(filter => filter.clearFilter());
 
-            this.submitFilters(new Event('submit'));
+            this.submitFilters(new Event('submit'), false);
         });
     }
 
@@ -69,10 +69,10 @@ class Filters extends HTMLElement {
      */
     setFilters(filters) {
         const filterForm = this.shadowRoot.getElementById("filter-form");
-        filterForm.addEventListener("submit", this.submitFilters.bind(this)); // Use addEventListener for form submission
+        filterForm.addEventListener("submit", this.submitFilters.bind(this, new Event('submit'), true)); // Use addEventListener for form submission
 
         const applyFilters = this.shadowRoot.getElementById("apply-filters");
-        applyFilters.addEventListener("click", this.submitFilters.bind(this)); // Use addEventListener for form submission
+        applyFilters.addEventListener("click", this.submitFilters.bind(this, new Event('submit'), true)); // Use addEventListener for form submission
 
         filters.forEach(filter => {
             const { type } = filter;
@@ -115,27 +115,13 @@ class Filters extends HTMLElement {
      * 
      * @param {SubmitEvent} e 
      */
-    async submitFilters(e) {
+    async submitFilters(e, applyFilters = true) {
         e.preventDefault()
+        console.log("Applying filters");
 
-        API.requestBuilder()
-            .url("/api/submit-filters")
-            .body(this.filterState())
-            .method(API.Methods.POST)
-            .q_params({ page: 1 })
-            .send()
-            .then((response) => {
-                /**
-                 * @type {Product[]} filteredContent
-                 */
-                const filteredContent = response.data.products;
+        localStorage.setItem("filters", JSON.stringify(this.filterState()));
 
-                const contentElement = document.querySelector("store-page")
-                    .shadowRoot
-                    .getElementById("content");
-
-                contentElement.setProducts(filteredContent);
-            }).catch((err) => console.error(err))
+        document.dispatchEvent(new CustomEvent('filters-applied', { detail: applyFilters }));
     }
 }
 

@@ -17,7 +17,6 @@ func main() {
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/api/filters", handlers.Filters)
 	http.HandleFunc("/api/products", handlers.Products)
-	http.HandleFunc("/api/submit-filters", handlers.ApplyFilters)
 
 	handler := middleware.SetCookie(middleware.LogRequest(http.DefaultServeMux))
 

@@ -14,6 +14,7 @@ filters-component {
     width: min-content;
     padding: 10px;
     margin-right: 5px;
+    margin-bottom: 10px;
 
     animation: slideIn 1s ease-out;
 }
@@ -46,17 +47,23 @@ content-component {
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1105px) {
     .store-container {
-        flex-direction: row;
-    }
-
-    filters-component {
-        display: none;
+        flex-direction: column;
     }
 
     content-component {
-        width: 100%;
+        width: calc(100% - 20px);
         margin-left: 0;
     }
+
+    filters-component {
+        display: block;
+        position: initial;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
+
+@media (max-width: 910px) {}

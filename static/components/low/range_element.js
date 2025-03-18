@@ -28,7 +28,7 @@ class Range extends HTMLElement {
         this.min = min;
         this.max = max;
         this.minValue = minValue;
-        this.maxValue = maxValue; 
+        this.maxValue = maxValue;
         this.changeSelectedWidthByValue();
     }
 
@@ -88,7 +88,7 @@ class Range extends HTMLElement {
         const thumbWidth = thumbMin.offsetWidth === 0 ? 20 : thumbMin.offsetWidth;
 
         const selectedMin = thumbMin.offsetLeft + thumbWidth / 2;
-        const selectedMax = thumbMax.offsetLeft + thumbWidth / 2;
+        const selectedMax = thumbMax.offsetLeft === 0 ? 200 : thumbMax.offsetLeft + thumbWidth / 2;
         selected.style.left = `${selectedMin}px`;
         selected.style.width = `${selectedMax - selectedMin}px`;
     }

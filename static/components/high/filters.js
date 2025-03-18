@@ -26,6 +26,8 @@ class Filters extends HTMLElement {
             <slot></slot>
         </div>
         `;
+        
+        localStorage.setItem("filters", JSON.stringify({}));
     }
 
     async loadStyles() {

@@ -16,6 +16,11 @@ class Content extends HTMLElement {
         `;
 
         document.addEventListener('filters-applied', (e) => this.navigateToPage(1, 1, e.detail));
+
+        window.addEventListener('resize', () => {
+            const currentPage = parseInt(this.shadowRoot.querySelector(".page-nav.active").textContent);
+            this.navigateToPage(currentPage, 1, false);
+        });
     }
 
     async loadStyles() {
@@ -27,7 +32,7 @@ class Content extends HTMLElement {
     }
 
     connectedCallback() {
-        this.navigateToPage(1, 1);
+        this.navigateToPage(1, 1, false);
     }
 
     /**
@@ -45,7 +50,7 @@ class Content extends HTMLElement {
             const productElement = document.createElement('card-component');
             const productElementShadowRoot = productElement.shadowRoot;
 
-            productElement.setImage(product.photo);
+            productElement.setImage("/photos/"+product.photo);
 
             const infoContainer = document.createElement('div');
             infoContainer.id = "info-container";
@@ -125,7 +130,7 @@ class Content extends HTMLElement {
             console.log("Going to previous page");
             this.navigateToPage(currentPage - 1, total_pages);
         });
-        for (let i = 0; i < total_pages && i <= 6; i++) {
+        for (let i = 0; i < total_pages; i++) {
             appendPageNav(i + 1);
         }
         appendPageNav(">", () => {
@@ -141,13 +146,23 @@ class Content extends HTMLElement {
     navigateToPage(page, total_pages, applyFilters = true) {
         console.log(`Navigating to page ${page}`);
         if (page < 1) {
+            console.log(`Page ${page} is out of bounds`);
+            
             return;
         } else if (page > total_pages) {
+            console.log(`Page ${page} is out of bounds`);
+            
             return;
         }
 
+        const filters = JSON.parse(localStorage.getItem("filters"));
+        if (!filters || Object.keys(filters).length === 0) {
+            applyFilters = false;
+        }
+        
         const contentWidth = this.shadowRoot.getElementById("content").clientWidth;
-        const columnsNum = Math.floor(Math.floor(contentWidth / 200));
+        const columnsNum = Math.floor(contentWidth / 210);
+        console.log(`Columns: ${columnsNum}`);
 
         API.requestBuilder()
             .method(API.Methods.PUT)

@@ -37,6 +37,8 @@ class Content extends HTMLElement {
         const contentDiv = this.shadowRoot.getElementById("content");
         contentDiv.innerHTML = "";
 
+        localStorage.setItem("products", JSON.stringify(products));
+
         products.forEach(product => {
             const productElement = document.createElement('card-component');
             const productElementShadowRoot = productElement.shadowRoot;

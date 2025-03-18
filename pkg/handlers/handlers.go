@@ -108,19 +108,36 @@ func ApplyFilters(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Filters:", filters)
 
 	checkbox_filters := filters["checkboxFilters"]
-	range_filters := filters["rangeFilters"]
+	range_filters := filters["rangeFilters"].(map[string]map[string]int32)
 	select_filters := filters["selectFilters"]
 
 	fmt.Println("Checkbox filters:", checkbox_filters)
 	fmt.Println("Range filters:", range_filters)
 	fmt.Println("Select filters:", select_filters)
 
+	var filtered_products []Product
+
+	// Filtering products
+	for _, product := range products {
+		// Checkbox filters unimplemented
+		// Range filters implementation
+		for key, value := range range_filters {
+			if key == "price" {
+				if product.Price < float64(value["min"]) || product.Price > float64(value["max"]) {
+					filtered_products = append(filtered_products, product)
+					break
+				}
+			}
+		}
+		// Select filters unimplemented
+	}
+
 	response.Init().
 		SetStatus("success").
 		SetCode(http.StatusOK).
 		SetData(map[string]interface{}{
 			"pages":    total_pages,
-			"products": products,
+			"products": filtered_products,
 		}).
 		Send(w)
 }

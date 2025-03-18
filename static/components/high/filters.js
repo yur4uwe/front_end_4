@@ -128,7 +128,7 @@ class Filters extends HTMLElement {
                 /**
                  * @type {Product[]} filteredContent
                  */
-                const filteredContent = response.data;
+                const filteredContent = response.data.products;
 
                 const contentElement = document.querySelector("store-page")
                     .shadowRoot

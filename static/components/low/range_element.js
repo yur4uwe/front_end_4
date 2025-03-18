@@ -27,8 +27,8 @@ class Range extends HTMLElement {
     setAttributes(min, max, minValue, maxValue) {
         this.min = min;
         this.max = max;
-        this.minValue = Math.max(min, Math.min(minValue, max));
-        this.maxValue = Math.min(max, Math.max(maxValue, this.minValue));
+        this.minValue = minValue;
+        this.maxValue = maxValue; 
         this.changeSelectedWidthByValue();
     }
 
@@ -85,8 +85,7 @@ class Range extends HTMLElement {
         const thumbMin = this.shadowRoot.getElementById('thumb-min');
         const thumbMax = this.shadowRoot.getElementById('thumb-max');
         const selected = this.shadowRoot.getElementById('selected');
-        const trackWidth = this.shadowRoot.getElementById('track').offsetWidth;
-        const thumbWidth = thumbMin.offsetWidth;
+        const thumbWidth = thumbMin.offsetWidth === 0 ? 20 : thumbMin.offsetWidth;
 
         const selectedMin = thumbMin.offsetLeft + thumbWidth / 2;
         const selectedMax = thumbMax.offsetLeft + thumbWidth / 2;
@@ -100,8 +99,8 @@ class Range extends HTMLElement {
         const thumbMin = this.shadowRoot.getElementById('thumb-min');
         const thumbMax = this.shadowRoot.getElementById('thumb-max');
 
-        const minPosition = thumbMin.offsetLeft + thumbMin.offsetWidth / 2;
-        const maxPosition = thumbMax.offsetLeft + thumbMax.offsetWidth / 2;
+        const minPosition = thumbMin.offsetLeft;
+        const maxPosition = thumbMax.offsetLeft + thumbMax.offsetWidth;
 
         this.minValue = Math.round((minPosition / trackWidth) * (this.max - this.min) + this.min);
         this.maxValue = Math.round((maxPosition / trackWidth) * (this.max - this.min) + this.min);
@@ -132,18 +131,17 @@ class Range extends HTMLElement {
 
     changeSelectedWidthByValue() {
         const track = this.shadowRoot.getElementById('track');
-        const trackWidth = track.offsetWidth;
-        if (trackWidth === 0 || this.max === this.min) return;
+        const trackWidth = track.offsetWidth === 0 ? 200 : track.offsetWidth;
 
         const thumbMin = this.shadowRoot.getElementById('thumb-min');
         const thumbMax = this.shadowRoot.getElementById('thumb-max');
-        const thumbWidth = thumbMin.offsetWidth;
+        const thumbWidth = thumbMin.offsetWidth === 0 ? 20 : thumbMin.offsetWidth;
 
-        const minPosition = ((this.minValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth);
-        const maxPosition = ((this.maxValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth);
+        const minPosition = ((this.minValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth / 2);
+        const maxPosition = ((this.maxValue - this.min) / (this.max - this.min)) * (trackWidth - thumbWidth / 2);
 
-        thumbMin.style.left = `${minPosition}px`;
-        thumbMax.style.left = `${maxPosition}px`;
+        thumbMin.style.left = `${minPosition - thumbMin.offsetWidth / 2}px`;
+        thumbMax.style.left = `${maxPosition - thumbMax.offsetWidth / 2}px`;
         this.updateSelectedRange();
     }
 }

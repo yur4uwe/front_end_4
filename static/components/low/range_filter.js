@@ -55,9 +55,8 @@ class RangeFilter extends HTMLElement {
 
         const rangeElement = document.createElement('range-input');
         rangeElement.id = filterState.name;
-        rangeElement.setAttributes(...filterState.range, ...filterState.range);
         rangeElement.addEventListener('input-change', (e) => this.updateInputs(e, minInput, maxInput));
-
+        
         const maxInput = document.createElement('input');
         maxInput.className = 'range-value';
         maxInput.type = 'text';
@@ -66,9 +65,11 @@ class RangeFilter extends HTMLElement {
         maxInput.value = filterState.range[1];
         maxInput.style.width = `${maxCharWidth}ch`;
         maxInput.addEventListener('input', (e) => this.handleInputChange(e, false));
-
+        
         container.append(minInput, rangeElement, maxInput);
         this.shadowRoot.appendChild(container);
+        
+        rangeElement.setAttributes(...filterState.range, ...filterState.range);
     }
 
     handleInputChange(event, isMin) {

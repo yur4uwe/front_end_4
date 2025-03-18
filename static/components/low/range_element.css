@@ -26,7 +26,7 @@
     top: 50%;
     left: 10px;
     /* Set the transform of the thumb */
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     /* Set the cursor of the thumb */
     cursor: pointer;
 }
@@ -45,7 +45,7 @@
     /* Set the left of the selected range */
     left: 0;
     /* Set the transform of the selected range */
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     /* Set the pointer events of the selected range */
     pointer-events: none;
 }

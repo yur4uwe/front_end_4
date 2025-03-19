@@ -11,7 +11,7 @@ class Content extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.loadStyles();
         this.shadowRoot.innerHTML = `
-        <div id="content"></div>
+        <div id="content"><div id="loading-spinner"></div></div>
         <nav id="pages"></nav>
         `;
 
@@ -31,9 +31,9 @@ class Content extends HTMLElement {
         this.shadowRoot.appendChild(styleElement);
     }
 
-    connectedCallback() {
-        this.navigateToPage(1, 1, false);
-    }
+    // connectedCallback() {
+    //     this.navigateToPage(1, 1, false);
+    // }
 
     /**
      * 
@@ -144,6 +144,11 @@ class Content extends HTMLElement {
     }
 
     navigateToPage(page, total_pages, applyFilters = true) {
+        const spinner = this.shadowRoot.getElementById('content').querySelector("#loading-spinner");
+        if (spinner) {
+            this.shadowRoot.getElementById('content').removeChild(spinner);
+        }
+
         console.log(`Navigating to page ${page}`);
         if (page < 1) {
             console.log(`Page ${page} is out of bounds`);

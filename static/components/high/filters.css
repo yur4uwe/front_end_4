@@ -12,6 +12,10 @@
     max-width: 350px;
 }
 
+body:not(.page-loaded) {
+    animation-play-state: paused;
+}
+
 .filters-header {
     display: flex;
     justify-content: space-between;

@@ -22,6 +22,26 @@ main {
     flex-grow: 1;
 }
 
+/* Only prevent animations on elements NOT in loading screen
+body:not(.page-loaded) :not(#loading-screen):not(#loading-screen *) {
+    animation: none !important;
+    transition: none !important;
+} */
+
+/* Keep loading screen animations working */
+#loading-screen .spinner {
+    animation: spin 1s linear infinite !important;
+}
+
+/* New animations should check for body class */
+ aside {
+    animation: slideIn 1s ease-out;
+}
+
+body.page-loaded .your-other-animated-element {
+    animation: yourAnimation 1s ease;
+}
+
 #loading-screen {
     position: fixed;
     top: 0;
@@ -29,11 +49,18 @@ main {
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, var(--bg-color-1) 0.5%, var(--bg-color-2) 70%);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    transition: opacity 1s ease !important;
 }
+
+/* body:not(.page-loaded) * {
+    animation: none !important;
+    transition: none !important;
+    animation-play-state: paused !important;
+} */
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
@@ -41,7 +68,6 @@ main {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -67,9 +93,12 @@ aside {
     width: 100%;
     min-width: 300px;
     height: 100vh;
-    animation: slideIn 1s ease-out;
     z-index: 999;
 }
+
+/* body.page-loaded aside {
+    animation: slideIn 1s ease-out;
+} */
 
 .sticky-iframe-container {
     top: 0;

@@ -7,6 +7,18 @@
     height: calc(100% - 20px);
     display: flex;
     flex-direction: column;
+
+    transition: appearance 0.5s;
+}
+
+@keyframes appearance {
+    from {
+        scale: 0;
+    }
+
+    to {
+        scale: 1;
+    }
 }
 
 :host(:hover) {

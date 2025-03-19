@@ -18,6 +18,13 @@ class Store extends HTMLElement {
         styleElement.textContent = styleText;
         this.shadowRoot.appendChild(styleElement);
     }
+
+    loadProducts() {
+        const content = this.shadowRoot.getElementById('content');
+        
+
+        content.navigateToPage(1, 1, false);    
+    }
 }
 
 customElements.define('store-page', Store);

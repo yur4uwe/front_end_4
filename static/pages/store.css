@@ -4,10 +4,26 @@
     padding: 20px;
 }
 
+
+
 .store-container {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+:host(.loaded) {
+    --animation-state: running; /* Running state when loaded */
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes appear {
+    from { scale: 0; }
+    to { scale: 1; }
 }
 
 filters-component {
@@ -19,33 +35,12 @@ filters-component {
     animation: slideIn 1s ease-out;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateX(-100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
 content-component {
     width: 80%;
     margin-left: 5px;
 
     animation: appear 1s ease-out;
 }
-
-@keyframes appear {
-    from {
-        scale: 0;
-    }
-
-    to {
-        scale: 1;
-    }
-}
-
 
 @media screen and (max-width: 1105px) {
     .store-container {

@@ -40,7 +40,7 @@ class Header extends HTMLElement {
         const numOfItems = itemsInCart ? itemsInCart.length : 0;
 
         if (numOfItems > 0) {
-            this.shadowRoot.getElementById("items-in-cart").style.display = "block";
+            this.shadowRoot.getElementById("items-in-cart").style.display = "flex";
         }
 
         this.shadowRoot.getElementById("items-in-cart").textContent = numOfItems

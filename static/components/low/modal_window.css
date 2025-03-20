@@ -4,7 +4,6 @@
 }
 
 main {
-
     position: sticky;
     top: 0;
     
@@ -32,9 +31,15 @@ main {
 }
 
 #modal-window-content {
-    background-color: aquamarine;   
+    background: linear-gradient(180deg, var(--bg-color-1), var(--bg-color-2, white));   
     padding: 10px;
     border-radius: 5px;
+    height: 60vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #close-btn {
@@ -48,14 +53,57 @@ main {
     z-index: 1000;
 }
 
-#modal-window-content {
-    pointer-events: auto; /* Ensure the content allows interaction */
+#button-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 10px;
 }
 
-#modal-window-controls {
-    pointer-events: auto; /* Ensure the controls allow interaction */
+#button-container button {
+    margin-left: 10px;
+    background: transparent;
+    border: 1px solid var(--text-color, black);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#close-btn {
-    pointer-events: auto; /* Ensure the button itself allows interaction */
+#info-container {
+    text-align: left;
+    width: 100%;
+
+}
+
+#img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+img {
+    border: 1px solid var(--text-color, black);
+    border-radius: 5px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 800px) {
+    #modal-window-content {
+        max-width: 80vw;
+        max-height: calc(100vh - 470px);
+    }
+
+    #modal-window-flex-content {
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 450px);
+    }
+    
+    #info-container * {
+        margin: 2px;
+    }
 }

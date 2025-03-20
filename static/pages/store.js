@@ -22,8 +22,7 @@ class Store extends HTMLElement {
     loadProducts() {
         const content = this.shadowRoot.getElementById('content');
         
-
-        content.navigateToPage(1, 1, false);    
+        content.navigateToPage(1, -1, false);   
     }
 }
 

@@ -7,7 +7,6 @@ class ModalWindow extends HTMLElement {
         this.loadStyles();
         this.shadowRoot.innerHTML = `
         <main>
-        
         <div id="modal-window-flex-content">
             <div id="modal-window-content">
                 <div id="modal-window-controls">
@@ -55,6 +54,11 @@ class ModalWindow extends HTMLElement {
         priceElement.textContent = product.price + "$";
 
         infoContainer.appendChild(priceElement);
+
+        const description = document.createElement('p');
+        description.textContent = product.description;
+
+        infoContainer.appendChild(description);
 
         const buttonContainer = document.createElement('div');
         buttonContainer.id = "button-container";

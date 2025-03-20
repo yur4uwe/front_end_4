@@ -15,7 +15,7 @@ class Content extends HTMLElement {
         <nav id="pages"></nav>
         `;
 
-        document.addEventListener('filters-applied', (e) => this.navigateToPage(1, 1, e.detail));
+        document.addEventListener('filters-applied', (e) => this.navigateToPage(1, -1, e.detail));
 
         window.addEventListener('resize', () => {
             const currentPage = parseInt(this.shadowRoot.querySelector(".page-nav.active").textContent);
@@ -44,7 +44,7 @@ class Content extends HTMLElement {
         const contentDiv = this.shadowRoot.getElementById("content");
         contentDiv.innerHTML = "";
 
-        localStorage.setItem("products", JSON.stringify(products));
+        localStorage.setItem("products", JSON.stringify({page: currentPage, products: products}));
 
         products.forEach(product => {
             const productElement = document.createElement('card-component');
@@ -53,7 +53,6 @@ class Content extends HTMLElement {
 
             contentDiv.appendChild(productElement);
         });
-
 
         this.appendPageNavButtons(total_pages, currentPage);
     }
@@ -106,6 +105,13 @@ class Content extends HTMLElement {
         });
     }
 
+    /**
+     * 
+     * @param {number} page 
+     * @param {number} total_pages 
+     * @param {boolean} applyFilters 
+     * @returns {void}
+     */
     navigateToPage(page, total_pages, applyFilters = true) {
         const spinner = this.shadowRoot.getElementById('content').querySelector("#loading-spinner");
         if (spinner) {
@@ -117,7 +123,7 @@ class Content extends HTMLElement {
             console.log(`Page ${page} is out of bounds`);
             
             return;
-        } else if (page > total_pages) {
+        } else if (page > total_pages && total_pages > 1) {
             console.log(`Page ${page} is out of bounds`);
             
             return;
@@ -131,6 +137,24 @@ class Content extends HTMLElement {
         const contentWidth = this.shadowRoot.getElementById("content").clientWidth;
         const columnsNum = Math.max(Math.floor(contentWidth / 210), 1);
         console.log(`Columns: ${columnsNum}`);
+
+        /**
+         * @type {{page: number, products: Product[]}} cache
+         */
+        const cache = JSON.parse(localStorage.getItem("products"));
+        if (cache && cache.products && cache.products.length > 0 && !applyFilters &&
+             5 * columnsNum === cache.products.length && total_pages > 0 && page === cache.page) 
+        {
+            if (this.shadowRoot.getElementById('content').querySelectorAll("card-component").length === 0) {
+                this.setProducts(cache.products, total_pages, page);
+            }
+            return;
+        }
+
+        // if (columnsNum * 5 !== cache.products.length) {
+        //     localStorage.setItem("products", JSON.stringify({}));
+        //     page = 1;
+        // }
 
         API.requestBuilder()
             .method(API.Methods.PUT)

@@ -67,6 +67,8 @@ class Filters extends HTMLElement {
             console.log(filters.length);
             filters.forEach(filter => filter.clearFilter());
 
+            localStorage.setItem("filters", JSON.stringify({}));
+
             this.submitFilters(new Event('submit'), false);
         });
 

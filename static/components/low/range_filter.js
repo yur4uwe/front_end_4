@@ -39,7 +39,7 @@ class RangeFilter extends HTMLElement {
         name.textContent = filterState.name;
         this.shadowRoot.appendChild(name);
 
-        const maxCharWidth = Math.max(...filterState.range.map(num => num.toString().length));
+        const maxCharWidth = Math.max(...filterState.range.map(num => num.toString().length)) + 1;
 
         const container = document.createElement('div');
         container.className = 'range-container';
@@ -72,32 +72,47 @@ class RangeFilter extends HTMLElement {
         rangeElement.setAttributes(...filterState.range, ...filterState.range);
     }
 
+    /**
+     * 
+     * @param {Event} event 
+     * @param {boolean} isMin 
+     */
     handleInputChange(event, isMin) {
         const input = event.target;
         const range = this.shadowRoot.querySelector('range-input');
-        let value = parseInt(input.value);
 
-        if (isNaN(value)) {
-            value = isMin ? range.min : range.max;
-            input.value = value;
-        }
+        // Clear any existing debounce timer
+        clearTimeout(this.debounceTimer);
 
-        const clamped = Math.max(range.min, Math.min(value, range.max));
-        if (clamped !== value) {
-            input.value = clamped;
-            value = clamped;
-        }
+        // Set a new debounce timer
+        this.debounceTimer = setTimeout(() => {
+            let value = parseInt(input.value);
 
-        const eventType = isMin ? 'min-value-change' : 'max-value-change';
-        range.dispatchEvent(new CustomEvent(eventType, {
-            detail: { [isMin ? 'minValue' : 'maxValue']: value }
-        }));
+            if (isNaN(value)) {
+                value = isMin ? range.min : range.max;
+                input.value = value;
+            }
+
+            const clamped = Math.max(range.min, Math.min(value, range.max));
+            if (clamped !== value) {
+                input.value = clamped;
+                value = clamped;
+            }
+
+            const eventType = isMin ? 'min-value-change' : 'max-value-change';
+            range.dispatchEvent(new CustomEvent(eventType, {
+                detail: { [isMin ? 'minValue' : 'maxValue']: value }
+            }));
+        }, 1000); // 1-second delay
     }
 
     updateInputs(event, minInput, maxInput) {
         const { minValue, maxValue } = event.detail;
         minInput.value = minValue;
         maxInput.value = maxValue;
+
+        // Dispatch the filter-change event
+        document.dispatchEvent(new Event('filter-change'));
     }
 }
 

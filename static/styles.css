@@ -15,6 +15,7 @@ body {
     background: linear-gradient(99deg, var(--bg-color-1) 0.5%, var(--bg-color-2) 70%);
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 main {
@@ -34,7 +35,7 @@ body:not(.page-loaded) :not(#loading-screen):not(#loading-screen *) {
 }
 
 /* New animations should check for body class */
- aside {
+aside {
     animation: slideIn 1s ease-out;
 }
 
@@ -135,6 +136,30 @@ iframe {
 
 #asmr-carpet {
     display: none;
+}
+
+#modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 510px);
+    height: 100%;
+    display: none;
+}
+
+#modal.show {
+    display: block;
+    transition: slideInFromLeft 1s ease-out;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 @media (max-width: 910px) {

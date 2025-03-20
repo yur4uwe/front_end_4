@@ -50,43 +50,9 @@ class Content extends HTMLElement {
             const productElement = document.createElement('card-component');
             const productElementShadowRoot = productElement.shadowRoot;
 
-            productElement.setImage("/photos/"+product.photo);
+            productElement.setProduct(product);
 
-            const infoContainer = document.createElement('div');
-            infoContainer.id = "info-container";
-
-            const name = document.createElement('h3');
-            name.textContent = product.name;
-
-            infoContainer.appendChild(name);
-
-            const priceElement = document.createElement('p');
-            priceElement.textContent = product.price + "$";
-
-            infoContainer.appendChild(priceElement);
-
-            const buttonContainer = document.createElement('div');
-            buttonContainer.id = "button-container";
-
-            const buyButton = document.createElement('button');
-            buyButton.textContent = "Buy";
-            buyButton.addEventListener('click', () => {
-                console.log(`Buying ${product.name}`);
-            });
-
-            buttonContainer.appendChild(buyButton);
-
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = "Add to cart";
-            addToCartButton.addEventListener('click', () => {
-                console.log(`Adding ${product.name} to cart`);
-            });
-
-            buttonContainer.appendChild(addToCartButton);
-
-            productElementShadowRoot.appendChild(infoContainer);
-
-            productElementShadowRoot.appendChild(buttonContainer);
+            
 
             contentDiv.appendChild(productElement);
         });

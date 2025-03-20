@@ -37,7 +37,7 @@ class SelectFilter extends HTMLElement {
         console.log('clearing select');
         this.shadowRoot.querySelectorAll("select").forEach(select => {
             select.selectedIndex = 0;
-        });
+    });
     }
 
     /**
@@ -56,6 +56,11 @@ class SelectFilter extends HTMLElement {
             const optionElement = document.createElement('option');
             optionElement.textContent = option;
             select.appendChild(optionElement);
+        });
+
+        select.addEventListener('change', () => {
+            // Dispatch the filter-change event
+            document.dispatchEvent(new Event('filter-change'));
         });
 
         this.shadowRoot.appendChild(select);

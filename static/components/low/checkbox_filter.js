@@ -68,6 +68,9 @@ class CheckboxFilter extends HTMLElement {
                 const name = option;
                 const checkbox = this.shadowRoot.getElementById(name);
                 checkbox.checked = !checkbox.checked;
+
+                // Dispatch the filter-change event
+                document.dispatchEvent(new Event('filter-change'));
             };
 
             optionNameElement.innerHTML = `<span>${option}</span>`;

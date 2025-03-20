@@ -17,8 +17,14 @@ class Filters extends HTMLElement {
             <div class="filters-header">
                 <h2>Filters</h2>
                 <div>
-                    <button id="apply-filters"><img src="/static/img/apply.png"></button>
-                    <button id="clear-filters"><img src="/static/img/bin.png"><button>
+                    <button id="apply-filters">
+                        <img src="/static/img/apply.png">
+                        <input type="checkbox" id="filters-applied-checkbox">
+                        <div id="filters-applied"></div>
+                    </button>
+                    <button id="clear-filters">
+                        <img src="/static/img/bin.png">
+                    <button>
                 </div>                
             </div>
             
@@ -48,7 +54,7 @@ class Filters extends HTMLElement {
                     console.error(response.error);
                     return;
                 }
-                this.setFilters(response.data)
+                this.setFilters(response.data);
             });
 
         const clearFilters = this.shadowRoot.getElementById("clear-filters");
@@ -62,6 +68,14 @@ class Filters extends HTMLElement {
             filters.forEach(filter => filter.clearFilter());
 
             this.submitFilters(new Event('submit'), false);
+        });
+
+        // Listen for filter changes and uncheck the checkbox
+        document.addEventListener('filter-change', () => {
+            console.log("Filter change detected");
+            
+            const checkbox = this.shadowRoot.getElementById("filters-applied-checkbox");
+            checkbox.checked = false;
         });
     }
 
@@ -122,6 +136,10 @@ class Filters extends HTMLElement {
         console.log("Applying filters");
 
         localStorage.setItem("filters", JSON.stringify(this.filterState()));
+        
+        const checkbox = this.shadowRoot.getElementById("filters-applied-checkbox")
+        checkbox.checked = true;
+
 
         document.dispatchEvent(new CustomEvent('filters-applied', { detail: applyFilters }));
     }

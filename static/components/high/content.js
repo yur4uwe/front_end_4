@@ -48,11 +48,8 @@ class Content extends HTMLElement {
 
         products.forEach(product => {
             const productElement = document.createElement('card-component');
-            const productElementShadowRoot = productElement.shadowRoot;
 
-            productElement.setProduct(product);
-
-            
+            productElement.setProduct(product);          
 
             contentDiv.appendChild(productElement);
         });
@@ -132,7 +129,7 @@ class Content extends HTMLElement {
         }
         
         const contentWidth = this.shadowRoot.getElementById("content").clientWidth;
-        const columnsNum = Math.floor(contentWidth / 210);
+        const columnsNum = Math.max(Math.floor(contentWidth / 210), 1);
         console.log(`Columns: ${columnsNum}`);
 
         API.requestBuilder()

@@ -1,21 +1,22 @@
 :host {
     position: relative;
+    z-index: 100;
 }
 
 main {
+
     position: sticky;
     top: 0;
-    z-index: 100;
     
     height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 #modal-window-controls {
-    width: calc(100% - 20px);
+    width: 100%;
     display: flex;
     justify-content: end;
     align-items: center;
-    position: sticky;
 }
 
 #modal-window-flex-content {
@@ -26,24 +27,35 @@ main {
     color: var(--text-color, black);
     padding: 10px;
     height: 100%;
-    text-align: center;
-    width: min-content;    
-    z-index: 100;
+    text-align: left;
     width: calc(100% - 20px);
-    
 }
 
 #modal-window-content {
     background-color: aquamarine;   
+    padding: 10px;
+    border-radius: 5px;
 }
 
-#close {
+#close-btn {
     cursor: pointer;
-    margin: 0 10px;
     border-radius: 50%;
     border: none;
     height: 30px;
     width: 30px;
     background: transparent;
     font-size: 1.5rem;
+    z-index: 1000;
+}
+
+#modal-window-content {
+    pointer-events: auto; /* Ensure the content allows interaction */
+}
+
+#modal-window-controls {
+    pointer-events: auto; /* Ensure the controls allow interaction */
+}
+
+#close-btn {
+    pointer-events: auto; /* Ensure the button itself allows interaction */
 }

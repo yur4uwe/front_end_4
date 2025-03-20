@@ -7,20 +7,31 @@ class ModalWindow extends HTMLElement {
         this.loadStyles();
         this.shadowRoot.innerHTML = `
         <main>
-        <div id="modal-window-controls">
-            <button id="close">X</button>
-        </div>
+        
         <div id="modal-window-flex-content">
             <div id="modal-window-content">
+                <div id="modal-window-controls">
+                    <button id="close-btn">X</button>
+                </div>
             </div>
         </div>
         </main>
         `;
 
-        this.shadowRoot.getElementById('close').addEventListener('click', () => {
-            document.getElementById('modal').classList.remove('show');
-            document.getElementById('modal').innerHTML = "";
+        const btn = this.shadowRoot.getElementById('close-btn');
+        console.log('Close button found:', btn);
+        
+        btn.addEventListener('click', () => {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.innerHTML = "";
+            }
         });
+
+        this.modalContent = this.shadowRoot.getElementById('modal-window-content');
+
+        console.log("button event listener added");
     }
 
     /**
@@ -56,11 +67,11 @@ class ModalWindow extends HTMLElement {
              */
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            if (cart.includes(product)) {
+            if (cart.includes(product.id)) {
                 console.log('Product already in cart');
                 return;
             } else {
-                cart.push(product);
+                cart.push(product.id);
             }
                 
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -87,8 +98,13 @@ class ModalWindow extends HTMLElement {
      * @param {string} photo 
      */
     setImage(photo) {
-        const container = this.shadowRoot.getElementById("modal-window-content");
-        container.innerHTML += `<div id="img-container"><img src="${photo}"></div>`;
+        // Use proper DOM manipulation instead of innerHTML
+        const imgContainer = document.createElement('div');
+        imgContainer.id = "img-container";
+        imgContainer.innerHTML = `<img src="${photo}">`;
+        
+        // Insert image before controls
+        this.modalContent.appendChild(imgContainer);
     }
 }
 

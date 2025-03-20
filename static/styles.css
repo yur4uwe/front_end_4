@@ -145,11 +145,15 @@ iframe {
     width: calc(100% - 510px);
     height: 100%;
     display: none;
+
+    /* transform: translateX(-100%); */
 }
 
 #modal.show {
     display: block;
-    transition: slideInFromLeft 1s ease-out;
+    /* transform: translateX(0);
+
+    transition: transform 1s ease-out; */
 }
 
 @keyframes slideInFromLeft {

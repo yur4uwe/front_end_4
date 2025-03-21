@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type Filter struct {
@@ -22,6 +23,7 @@ type Product struct {
 	Price       float64 `json:"price"`
 	Description string  `json:"description"`
 	Photo       string  `json:"photo"`
+	Category    string  `json:"category"`
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -120,4 +122,55 @@ func Products(w http.ResponseWriter, r *http.Request) {
 			"products": filtered_products,
 		}).
 		Send(w)
+}
+
+func ServeStatic(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Static file:", r.URL.Path)
+
+	sliced_path := strings.Split(r.URL.Path[1:], "/")
+	if len(sliced_path) == 0 {
+		http.ServeFile(w, r, "../static/index.html")
+		return
+	} else if sliced_path[1] == "components" || sliced_path[1] == "pages" {
+		if strings.HasSuffix(r.URL.Path, ".js") {
+			w.Header().Set("Content-Type", "application/javascript")
+		} else if strings.HasSuffix(r.URL.Path, ".css") {
+			w.Header().Set("Content-Type", "text/css")
+		} else if strings.HasSuffix(r.URL.Path, ".html") {
+			w.Header().Set("Content-Type", "text/html")
+		}
+
+		file, err := os.ReadFile("../" + strings.Join(sliced_path, "/"))
+		if err != nil {
+			http.Error(w, "Not Found", http.StatusNotFound)
+			return
+		}
+
+		file_str := string(file)
+
+		shadowRootPosition := findShadowRootStart(file_str)
+		if shadowRootPosition == -1 {
+			http.Error(w, "Not Found", http.StatusNotFound)
+			return
+		}
+
+		style_file_name := strings.Split(sliced_path[len(sliced_path)-1], ".")[0]
+		style_file_dest := "../" + strings.Join(sliced_path[:len(sliced_path)-1], "/") + "/" + style_file_name + ".css"
+		style_file, err := os.ReadFile(style_file_dest)
+		if err != nil {
+			http.Error(w, "Not Found", http.StatusNotFound)
+			return
+		}
+
+		style_file_str := string(style_file)
+		style_file_str = strings.ReplaceAll(style_file_str, "\r\n", "")
+
+		file_str = insertStylesString(file_str, shadowRootPosition, style_file_str)
+
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(file_str))
+		return
+	}
+
+	http.ServeFile(w, r, ".."+r.URL.Path)
 }

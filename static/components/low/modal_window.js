@@ -4,7 +4,7 @@ class ModalWindow extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML = `
         <main>
         <div id="modal-window-flex-content">
@@ -19,7 +19,7 @@ class ModalWindow extends HTMLElement {
 
         const btn = this.shadowRoot.getElementById('close-btn');
         console.log('Close button found:', btn);
-        
+
         btn.addEventListener('click', () => {
             const modal = document.getElementById('modal');
             if (modal) {
@@ -40,7 +40,7 @@ class ModalWindow extends HTMLElement {
     setProduct(product) {
         this.product = product;
 
-        this.setImage("/photos/"+product.photo);
+        this.setImage("/photos/" + product.photo);
 
         const infoContainer = document.createElement('div');
         infoContainer.id = "info-container";
@@ -77,7 +77,7 @@ class ModalWindow extends HTMLElement {
             } else {
                 cart.push(product.id);
             }
-                
+
             localStorage.setItem('cart', JSON.stringify(cart));
             document.dispatchEvent(new Event('add-to-cart'));
         });
@@ -106,7 +106,7 @@ class ModalWindow extends HTMLElement {
         const imgContainer = document.createElement('div');
         imgContainer.id = "img-container";
         imgContainer.innerHTML = `<img src="${photo}">`;
-        
+
         // Insert image before controls
         this.modalContent.appendChild(imgContainer);
     }

@@ -12,21 +12,17 @@
         "name": "Category",
         "type": "checkbox",
         "options": [
-            "Italian",
-            "Clothing",
-            "Home",
-            "Kitchen"
-        ],
-        "range": []
-    },
-    {
-        "name": "Brand",
-        "type": "checkbox",
-        "options": [
-            "Brand 1",
-            "Brand 2",
-            "Brand 3",
-            "Brand 4"
+            "Character Series",
+            "Surreal/Fantasy",
+            "Viral Internet Trends",
+            "Gaming/VR Culture",
+            "Audio/Sound Memes",
+            "Absurdist Humor",
+            "Challenges/Dances",
+            "Pop Culture References",
+            "Political/Social Commentary",
+            "Anime/Weeb Culture",
+            "Body Horror/Strange"
         ],
         "range": []
     }

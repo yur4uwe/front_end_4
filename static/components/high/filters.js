@@ -11,7 +11,7 @@ class Filters extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML = `
         <div>
             <div class="filters-header">
@@ -32,7 +32,7 @@ class Filters extends HTMLElement {
             <slot></slot>
         </div>
         `;
-        
+
         localStorage.setItem("filters", JSON.stringify({}));
     }
 
@@ -75,7 +75,7 @@ class Filters extends HTMLElement {
         // Listen for filter changes and uncheck the checkbox
         document.addEventListener('filter-change', () => {
             console.log("Filter change detected");
-            
+
             const checkbox = this.shadowRoot.getElementById("filters-applied-checkbox");
             checkbox.checked = false;
         });
@@ -138,7 +138,7 @@ class Filters extends HTMLElement {
         console.log("Applying filters");
 
         localStorage.setItem("filters", JSON.stringify(this.filterState()));
-        
+
         const checkbox = this.shadowRoot.getElementById("filters-applied-checkbox")
         checkbox.checked = true;
 

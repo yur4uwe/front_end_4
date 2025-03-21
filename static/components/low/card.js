@@ -7,7 +7,12 @@ class Card extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
+        this.shadowRoot.innerHTML = `
+        <div id="img-container"></div>
+        <div id="info-container"></div>
+        <div id="button-container"></div>
+        `;
 
         this.addEventListener("click", () => {
             console.log("clicked");
@@ -40,64 +45,58 @@ class Card extends HTMLElement {
     setProduct(product) {
         this.product = product;
 
-        this.setImage("/photos/"+product.photo);
+        this.setImage("/photos/" + product.photo);
 
-        const infoContainer = document.createElement('div');
-            infoContainer.id = "info-container";
+        const infoContainer = this.shadowRoot.getElementById('info-container');
 
-            const name = document.createElement('h3');
-            name.textContent = product.name;
+        const name = document.createElement('h3');
+        name.textContent = product.name;
 
-            infoContainer.appendChild(name);
+        infoContainer.appendChild(name);
 
-            const priceElement = document.createElement('p');
-            priceElement.textContent = product.price + "$";
+        const priceElement = document.createElement('p');
+        priceElement.textContent = product.price + "$";
 
-            infoContainer.appendChild(priceElement);
+        infoContainer.appendChild(priceElement);
 
-            const buttonContainer = document.createElement('div');
-            buttonContainer.id = "button-container";
+        const buttonContainer = this.shadowRoot.getElementById('button-container');
 
-            const buyButton = document.createElement('button');
-            buyButton.textContent = "Buy";
-            buyButton.addEventListener('click', () => {
-                console.log(`Buying ${product.name}`);
-                document.dispatchEvent(new CustomEvent('buy', { detail: product }));
-            });
+        const buyButton = document.createElement('button');
+        buyButton.textContent = "Buy";
+        buyButton.addEventListener('click', () => {
+            console.log(`Buying ${product.name}`);
+            document.dispatchEvent(new CustomEvent('buy', { detail: product }));
+        });
 
-            buttonContainer.appendChild(buyButton);
+        buttonContainer.appendChild(buyButton);
 
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = "Add to cart";
-            addToCartButton.addEventListener('click', () => {
-                console.log(`Adding ${product.name} to cart`);
+        const addToCartButton = document.createElement('button');
+        addToCartButton.textContent = "Add to cart";
+        addToCartButton.addEventListener('click', () => {
+            console.log(`Adding ${product.name} to cart`);
 
-                const itemsInCart = localStorage.getItem("cart");
-                if (itemsInCart) {
-                    /**
-                     * @type {number[]} cart
-                     */
-                    const cart = JSON.parse(itemsInCart);
-                    if (cart.includes(product.id)) {
-                        console.log("Product already in cart");
-                        return;
-                    } else {
-                        cart.push(product.id);
-                    }
-
-                    localStorage.setItem("cart", JSON.stringify(cart));
+            const itemsInCart = localStorage.getItem("cart");
+            if (itemsInCart) {
+                /**
+                 * @type {number[]} cart
+                 */
+                const cart = JSON.parse(itemsInCart);
+                if (cart.includes(product.id)) {
+                    console.log("Product already in cart");
+                    return;
                 } else {
-                    localStorage.setItem("cart", JSON.stringify([product.id]));
+                    cart.push(product.id);
                 }
 
-                document.dispatchEvent(new CustomEvent('add-to-cart', { detail: product }));
-            });
+                localStorage.setItem("cart", JSON.stringify(cart));
+            } else {
+                localStorage.setItem("cart", JSON.stringify([product.id]));
+            }
 
-            buttonContainer.appendChild(addToCartButton);
+            document.dispatchEvent(new CustomEvent('add-to-cart', { detail: product }));
+        });
 
-            this.shadowRoot.appendChild(infoContainer);
-
-            this.shadowRoot.appendChild(buttonContainer);
+        buttonContainer.appendChild(addToCartButton);
     }
 
     /**
@@ -105,8 +104,7 @@ class Card extends HTMLElement {
      * @param {string} photo 
      */
     setImage(photo) {
-        
-        this.shadowRoot.innerHTML += `<div id="img-container"><img src="${photo}"></div>`;
+        this.shadowRoot.getElementById("img-container").innerHTML = `<img src="${photo}">`;
     }
 }
 

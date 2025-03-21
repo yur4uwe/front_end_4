@@ -13,21 +13,31 @@
 }
 
 :host(.loaded) {
-    --animation-state: running; /* Running state when loaded */
+    --animation-state: running;
+    /* Running state when loaded */
 }
 
 @keyframes slideIn {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes appear {
-    from { scale: 0; }
-    to { scale: 1; }
+    from {
+        scale: 0;
+    }
+
+    to {
+        scale: 1;
+    }
 }
 
 filters-component {
-    width: min-content;
     padding: 10px;
     margin-right: 5px;
     margin-bottom: 10px;
@@ -55,7 +65,7 @@ content-component {
     filters-component {
         display: block;
         position: initial;
-        max-width: 100%;
+        max-width: 350px;
         margin-left: auto;
         margin-right: auto;
     }

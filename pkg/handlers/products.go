@@ -59,35 +59,82 @@ func readProducts(page_len int) ([]Product, int, error) {
 func filterProducts(filters map[string]interface{}, products []Product) []Product {
 	var filtered_products []Product
 
-	checkbox_filters := filters["checkboxFilters"]
+	checkbox_filters := filters["checkboxFilters"].(map[string]interface{})
 	range_filters := filters["rangeFilters"].(map[string]interface{})
-	select_filters := filters["selectFilters"]
+	select_filters := filters["selectFilters"].(map[string]interface{})
+
+	apply_checkbox_filters := false
+	for _, value := range checkbox_filters {
+		if value == true {
+			apply_checkbox_filters = true
+			break
+		}
+	}
 
 	fmt.Println("Checkbox filters:", checkbox_filters)
 	fmt.Println("Range filters:", range_filters)
 	fmt.Println("Select filters:", select_filters)
 
+	fmt.Println("Applying checkbox filters:", apply_checkbox_filters)
+
 	for _, product := range products {
-		var pass bool = true
-		// Checkbox filters unimplemented
-		// Range filters implementation
+		// Apply checkbox filters
+		if apply_checkbox_filters {
+			includeProduct := false
+			for key, value := range checkbox_filters {
+				is_active := value.(bool)
+				if key == product.Category && is_active {
+					includeProduct = true
+					break
+				}
+			}
+			// If the product does not match any active checkbox filter, skip it
+			if !includeProduct {
+				continue
+			}
+		}
+
+		// Apply range filters
 		for key, value := range range_filters {
 			if key == "Price" {
 				rangeFilter := value.(map[string]interface{})
 				minValue := float64(rangeFilter["min"].(float64))
 				maxValue := float64(rangeFilter["max"].(float64))
 				if product.Price < minValue || product.Price > maxValue {
-					pass = false
-					break
+					continue
 				}
 			}
 		}
-		// Select filters unimplemented
 
-		if pass {
-			filtered_products = append(filtered_products, product)
-		}
+		// Select filters (unimplemented)
+
+		// Add the product to the filtered list
+		filtered_products = append(filtered_products, product)
 	}
 
 	return filtered_products
+}
+
+func findShadowRootStart(file_str string) int {
+	shadowRootEqSubstring := "this.shadowRoot.innerHTML = `"
+	shadowRootPlusEqSubstring := "this.shadowRoot.innerHTML += `"
+
+	for i := 0; i < len(file_str)-len(shadowRootPlusEqSubstring); i++ {
+		eq_substr := file_str[i : i+len(shadowRootEqSubstring)]
+		pl_eq_substr := file_str[i : i+len(shadowRootPlusEqSubstring)]
+		if eq_substr == shadowRootEqSubstring {
+			fmt.Println("Shadow root start:", i)
+			return i + len(shadowRootEqSubstring)
+		} else if pl_eq_substr == shadowRootPlusEqSubstring {
+			fmt.Println("Shadow root start:", i)
+			return i + len(shadowRootPlusEqSubstring)
+		}
+	}
+
+	fmt.Println("Shadow root start:", -1)
+	return -1
+}
+
+func insertStylesString(file_str string, index int, insert_str string) string {
+	return file_str[:index] + "<style>" + insert_str + "</style>" + file_str[index:]
 }

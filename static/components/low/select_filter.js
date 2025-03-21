@@ -7,7 +7,7 @@ class SelectFilter extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML = ``;
     }
 
@@ -37,7 +37,7 @@ class SelectFilter extends HTMLElement {
         console.log('clearing select');
         this.shadowRoot.querySelectorAll("select").forEach(select => {
             select.selectedIndex = 0;
-    });
+        });
     }
 
     /**

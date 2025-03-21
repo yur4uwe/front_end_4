@@ -9,11 +9,29 @@ class Content extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML = `
-        <div id="content"><div id="loading-spinner"></div></div>
+        <div id="content"></div>
         <nav id="pages"></nav>
         `;
+
+        for (let i = 0; i < 20; i++) {
+            const placeholder = document.createElement('div');
+            placeholder.classList.add("placeholder");
+
+            const imagePlaceholder = document.createElement('div');
+            imagePlaceholder.classList.add("image-placeholder");
+
+            const textPlaceholder1 = document.createElement('div');
+            textPlaceholder1.classList.add("text-placeholder");
+            const textPlaceholder2 = document.createElement('div');
+            textPlaceholder2.classList.add("text-placeholder");
+
+            placeholder.appendChild(imagePlaceholder);
+            placeholder.append(textPlaceholder1, textPlaceholder2);
+
+            this.shadowRoot.getElementById("content").appendChild(placeholder);
+        }
 
         document.addEventListener('filters-applied', (e) => this.navigateToPage(1, -1, e.detail));
 
@@ -44,12 +62,12 @@ class Content extends HTMLElement {
         const contentDiv = this.shadowRoot.getElementById("content");
         contentDiv.innerHTML = "";
 
-        localStorage.setItem("products", JSON.stringify({page: currentPage, products: products}));
+        localStorage.setItem("products", JSON.stringify({ page: currentPage, products: products }));
 
         products.forEach(product => {
             const productElement = document.createElement('card-component');
 
-            productElement.setProduct(product);          
+            productElement.setProduct(product);
 
             contentDiv.appendChild(productElement);
         });
@@ -121,11 +139,11 @@ class Content extends HTMLElement {
         console.log(`Navigating to page ${page}`);
         if (page < 1) {
             console.log(`Page ${page} is out of bounds`);
-            
+
             return;
         } else if (page > total_pages && total_pages > 1) {
             console.log(`Page ${page} is out of bounds`);
-            
+
             return;
         }
 
@@ -133,7 +151,7 @@ class Content extends HTMLElement {
         if (!filters || Object.keys(filters).length === 0) {
             applyFilters = false;
         }
-        
+
         const contentWidth = this.shadowRoot.getElementById("content").clientWidth;
         const columnsNum = Math.max(Math.floor(contentWidth / 210), 1);
         console.log(`Columns: ${columnsNum}`);
@@ -143,8 +161,7 @@ class Content extends HTMLElement {
          */
         const cache = JSON.parse(localStorage.getItem("products"));
         if (cache && cache.products && cache.products.length > 0 && !applyFilters &&
-             5 * columnsNum === cache.products.length && total_pages > 0 && page === cache.page) 
-        {
+            5 * columnsNum === cache.products.length && total_pages > 0 && page === cache.page) {
             if (this.shadowRoot.getElementById('content').querySelectorAll("card-component").length === 0) {
                 this.setProducts(cache.products, total_pages, page);
             }

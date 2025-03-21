@@ -4,419 +4,479 @@
         "name": "Bombardiro Crocodilo",
         "price": 450,
         "description": "un alligatore che bombarda i bambini di Gaza e della Palestina e non crede in Allah e ama le bombe",
-        "photo": "bombardiro_crocodilo.jpg"
+        "photo": "bombardiro_crocodilo.webp",
+        "category": "Political/Social Commentary"
     },
     {
         "id": 2,
         "name": "BomBomBini Guzzini",
         "price": 400,
         "description": "fratello di Bombardiro Crocodilo",
-        "photo": "bombombini_guzzini.jpg"
+        "photo": "bombombini_guzzini.webp",
+        "category": "Character Series"
     },
     {
         "id": 3,
         "name": "Brr Brr Patapim",
         "price": 550,
         "description": "",
-        "photo": "brr_brr_patapim.jpg"
+        "photo": "brr_brr_patapim.webp",
+        "category": "Character Series"
     },
     {
         "id": 4,
         "name": "Le Bobrito De Curvini",
         "price": 230,
         "description": "",
-        "photo": "curvito_de_bobrito.jpg"
+        "photo": "curvito_de_bobrito.webp",
+        "category": "Character Series"
     },
     {
         "id": 5,
         "name": "Frigo Camelo",
         "price": 670,
         "description": "",
-        "photo": "frigo_camelo.jpg"
+        "photo": "frigo_camelo.webp",
+        "category": "Character Series"
     },
     {
         "id": 6,
         "name": "Girafa Celeste",
         "price": 510,
         "description": "",
-        "photo": "girafa_celeste.jpg"
+        "photo": "girafa_celeste.webp",
+        "category": "Character Series"
     },
     {
         "id": 7,
         "name": "la Negrito Antarctido",
         "price": 100,
         "description": "",
-        "photo": "la_negrilo_antarctido.jpg"
+        "photo": "la_negrilo_antarctido.webp",
+        "category": "Character Series"
     },
     {
         "id": 8,
         "name": "Lirili Larila",
         "price": 670,
         "description": "",
-        "photo": "lirili_larila.jpg"
+        "photo": "lirili_larila.webp",
+        "category": "Character Series"
     },
     {
         "id": 9,
         "name": "Tralalelo Tralala",
         "price": 1000,
         "description": "Porquo dio porqua la",
-        "photo": "tralalelo_tralala.jpg"
+        "photo": "tralalelo_tralala.webp",
+        "category": "Character Series"
     },
     {
         "id": 10,
         "name": "Trippi Tropa",
         "price": 430,
         "description": "",
-        "photo": "tripi_tropa.jpg"
+        "photo": "tripi_tropa.webp",
+        "category": "Character Series"
     },
     {
         "id": 11,
         "name": "Trulimero Trulicina",
         "price": 120,
         "description": "",
-        "photo": "trulimero_trulichina.jpg"
+        "photo": "trulimero_trulichina.webp",
+        "category": "Character Series"
     },
     {
         "id": 12,
         "name": "Cavallo Navallo",
         "price": 610,
         "description": "",
-        "photo": "ya_xz.jpg"
+        "photo": "ya_xz.webp",
+        "category": "Character Series"
     },
     {
         "id": 13,
         "name": "El Cacto Hipopotamo",
         "price": 320,
         "description": "le rinocherola katusita",
-        "photo": "el_cacto_hipopotamo.jpg"
+        "photo": "el_cacto_hipopotamo.webp",
+        "category": "Character Series"
     },
     {
         "id": 14,
         "name": "Smurf Cat",
         "price": 720,
         "description": "Surreal meme battle between blue feline and pink pachyderm",
-        "photo": "smurf_cat.jpg"
+        "photo": "smurf_cat.webp",
+        "category": "Surreal/Fantasy"
     },
     {
         "id": 15,
         "name": "Amogus",
         "price": 420,
         "description": "Suspicious crewmate with drip posing suspiciously",
-        "photo": "amogus_drip.jpg"
+        "photo": "amogus_drip.webp",
+        "category": "Viral Internet Trends"
     },
     {
         "id": 16,
         "name": "Gigachad",
         "price": 999,
         "description": "Ultra masculine 3D-modeled sigma male",
-        "photo": "gigachad_ultra.jpg"
+        "photo": "gigachad_ultra.webp",
+        "category": "Viral Internet Trends"
     },
     {
         "id": 17,
         "name": "Ugandan Knuckles",
         "price": 666,
         "description": "Crustacean-looking VRChat character asking 'do you know da wae'",
-        "photo": "ugandan_knuckles.jpg"
+        "photo": "ugandan_knuckles.webp",
+        "category": "Gaming/VR Culture"
     },
     {
         "id": 18,
         "name": "Strawberry Elephant",
-        "price":  850,
+        "price": 850,
         "description": "Pink pachyderm with fruit pattern and exaggerated features",
-        "photo": "strawberry_elephant.jpg"
+        "photo": "strawberry_elephant.webp",
+        "category": "Surreal/Fantasy"
     },
     {
         "id": 19,
         "name": "Grimace Shake",
-        "price":  350,
+        "price": 350,
         "description": "Purple McDonald's shake causing chaotic bathroom transformations",
-        "photo": "grimace_shake.jpg"
+        "photo": "grimace_shake.webp",
+        "category": "Body Horror/Strange"
     },
     {
         "id": 20,
         "name": "Lightskin Stare",
-        "price":  250,
+        "price": 250,
         "description": "Slightly aggressive attractive gaze from mixed race individuals",
-        "photo": "lightskin_stare.jpg"
+        "photo": "lightskin_stare.webp",
+        "category": "Viral Internet Trends"
     },
     {
         "id": 21,
         "name": "Metal Pipe Falling",
-        "price":  950,
+        "price": 950,
         "description": "3D rendered industrial pipe descending with clanging sound effect",
-        "photo": "metal_pipe_falling.jpg"
+        "photo": "metal_pipe_falling.webp",
+        "category": "Audio/Sound Memes"
     },
     {
         "id": 22,
         "name": "Backrooms",
-        "price":  890,
+        "price": 890,
         "description": "Endless yellow liminal office space with fluorescent lighting",
-        "photo": "backrooms_level0.jpg"
+        "photo": "backrooms_level0.webp",
+        "category": "Surreal/Fantasy"
     },
     {
         "id": 24,
         "name": "T Pose",
-        "price":  325,
+        "price": 325,
         "description": "Default animation pose asserting dominance in digital spaces",
-        "photo": "tpose_dominance.jpg"
+        "photo": "tpose_dominance.webp",
+        "category": ""
     },
     {
         "id": 25,
         "name": "Freddy Fazbear",
-        "price":  675,
+        "price": 675,
         "description": "Animatronic bear with endoskeleton visible through rotting costume",
-        "photo": "freddy_fazbear.jpg"
+        "photo": "freddy_fazbear.webp",
+        "category": "Body Horror/Strange"
     },
     {
         "id": 27,
         "name": "Quandale Dingle",
-        "price":  450,
+        "price": 450,
         "description": "Absurdist cartoon character with elongated face and chaotic energy",
-        "photo": "quandale_dingle.jpg"
+        "photo": "quandale_dingle.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 28,
         "name": "Shadow Wizard Money Gang",
-        "price":  666,
+        "price": 666,
         "description": "Occult themed rap collective with glowing spell effects",
-        "photo": "shadow_wizard_gang.jpg"
+        "photo": "shadow_wizard_gang.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 29,
         "name": "Skibidi Toilet",
-        "price":  950,
+        "price": 950,
         "description": "Animated singing head emerging from toilet bowl",
-        "photo": "skibidi_toilet.jpg"
+        "photo": "skibidi_toilet.webp",
+        "category": "Audio/Sound Memes"
     },
     {
         "id": 31,
         "name": "Goon Cave",
-        "price":  880,
+        "price": 880,
         "description": "Chaotic room filled with anime posters and empty energy drinks",
-        "photo": "goon_cave.jpg"
+        "photo": "goon_cave.webp",
+        "category": "Gaming/VR Culture"
     },
     {
         "id": 32,
         "name": "Axel in Harlem",
-        "price":  770,
+        "price": 770,
         "description": "Viral dance video frame with distinctive yellow jacket",
-        "photo": "axel_harlem.jpg"
+        "photo": "axel_harlem.webp",
+        "category": "Challenges/Dances"
     },
     {
         "id": 33,
         "name": "Morbin Time",
-        "price":  350,
+        "price": 350,
         "description": "Jared Leto as Morbius with glowing red eyes",
-        "photo": "morbius_moment.jpg"
+        "photo": "morbius_moment.webp",
+        "category": "Pop Culture References"
     },
     {
         "id": 34,
         "name": "Zesty Pose",
-        "price":  250,
+        "price": 250,
         "description": "Flamboyant hand gestures with exaggerated facial expression",
-        "photo": "zesty_gesture.jpg"
+        "photo": "zesty_gesture.webp",
+        "category": ""
     },
     {
         "id": 35,
         "name": "Wholesome Chungus",
-        "price":  425,
+        "price": 425,
         "description": "Obese Bugs Bunny giving thumbs up",
-        "photo": "wholesome_chungus.jpg"
+        "photo": "wholesome_chungus.webp",
+        "category": "Pop Culture References"
     },
     {
         "id": 38,
         "name": "Griddy Dance",
-        "price":  650,
+        "price": 650,
         "description": "Football touchdown celebration with leg movements",
-        "photo": "griddy_dance.jpg"
+        "photo": "griddy_dance.webp",
+        "category": "Challenges/Dances"
     },
     {
         "id": 39,
         "name": "F in the Chat",
-        "price":  150,
+        "price": 150,
         "description": "Call of Duty 'Press F to Pay Respects' screenshot",
-        "photo": "f_chat.jpg"
+        "photo": "f_chat.webp",
+        "category": "Gaming/VR Culture"
     },
     {
         "id": 40,
         "name": "Bing Chilling",
-        "price":  480,
+        "price": 480,
         "description": "John Cena eating ice cream with Chinese text overlay",
-        "photo": "bing_chilling.jpg"
+        "photo": "bing_chilling.webp",
+        "category": "Pop Culture References"
     },
     {
         "id": 41,
         "name": "I Show Speed",
-        "price":  720,
+        "price": 720,
         "description": "Streamer's signature wide eyed reaction face",
-        "photo": "speed_face.jpg"
+        "photo": "speed_face.webp",
+        "category": ""
     },
     {
         "id": 42,
         "name": "Kumalala",
-        "price":  330,
+        "price": 330,
         "description": "Viral desert dance with rhythmic sand movements",
-        "photo": "kumalala_dance.jpg"
+        "photo": "kumalala_dance.webp",
+        "category": "Challenges/Dances"
     },
     {
         "id": 43,
         "name": "Delulu Cat",
-        "price":  410,
+        "price": 410,
         "description": "Anime style cat with spiraled eyes and fantasy background",
-        "photo": "delulu_cat.jpg"
+        "photo": "delulu_cat.webp",
+        "category": "Anime/Weeb Culture"
     },
     {
         "id": 45,
         "name": "Mewing Pose",
-        "price":  275,
+        "price": 275,
         "description": "Side profile comparison showing jawline improvement",
-        "photo": "mewing_comparison.jpg"
+        "photo": "mewing_comparison.webp",
+        "category": ""
     },
     {
         "id": 46,
         "name": "Social Credit",
-        "price":  600,
+        "price": 600,
         "description": "Chinese flag with plummeting stock arrow meme",
-        "photo": "social_credit.jpg"
+        "photo": "social_credit.webp",
+        "category": "Political/Social Commentary"
     },
     {
         "id": 47,
         "name": "Whopper Whopper",
-        "price":  150,
+        "price": 150,
         "description": "Burger King mascot multiplied in surreal pattern",
-        "photo": "whopper_army.jpg"
+        "photo": "whopper_army.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 48,
         "name": "Sisyphus Boulder",
-        "price":  999,
+        "price": 999,
         "description": "Greek myth figure struggling with giant stone meme",
-        "photo": "sisyphus_modern.jpg"
+        "photo": "sisyphus_modern.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 49,
         "name": "Oceangate Titan",
-        "price":  950,
+        "price": 950,
         "description": "Submersible controller with Logitech gamepad meme",
-        "photo": "titan_controller.jpg"
+        "photo": "titan_controller.webp",
+        "category": "Viral Internet Trends"
     },
     {
         "id": 50,
         "name": "Nair Incident",
-        "price":  850,
+        "price": 850,
         "description": "Screenshot of viral buttock waxing complaint tweet",
-        "photo": "nair_tweet.jpg"
+        "photo": "nair_tweet.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 51,
         "name": "Family Guy Surfers",
-        "price":  750,
+        "price": 750,
         "description": "Split screen meme combining cartoon with mobile game",
-        "photo": "familyguy_subway.jpg"
+        "photo": "familyguy_subway.webp",
+        "category": "Pop Culture References"
     },
     {
         "id": 53,
         "name": "Surgeon Wojak",
-        "price":  670,
+        "price": 670,
         "description": "Medical mask wearing meme character holding scalpel",
-        "photo": "surgeon_wojak.jpg"
+        "photo": "surgeon_wojak.webp",
+        "category": "Anime/Weeb Culture"
     },
     {
         "id": 55,
         "name": "GTA 6 Hype",
-        "price":  999,
+        "price": 999,
         "description": "Blurry trailer frame with exaggerated zoom enhancements",
-        "photo": "gta6_leak.jpg"
+        "photo": "gta6_leak.webp",
+        "category": "Pop Culture References"
     },
     {
         "id": 58,
         "name": "Biggest Bird",
-        "price":  770,
+        "price": 770,
         "description": "Sesame Street character photoshopped into giant monster",
-        "photo": "kaiju_bird.jpg"
+        "photo": "kaiju_bird.webp",
+        "category": "Surreal/Fantasy"
     },
     {
         "id": 60,
         "name": "Josh Hutcherson Coffin",
-        "price":  666,
+        "price": 666,
         "description": "Hunger Games actor dancing with Ghanaian pallbearers",
-        "photo": "josh_coffin.jpg"
+        "photo": "josh_coffin.webp",
+        "category": "Challenges/Dances"
     },
     {
         "id": 62,
         "name": "Based Wojak",
-        "price":  450,
+        "price": 450,
         "description": "Chad like character giving thumbs up with sunglasses",
-        "photo": "based_wojak.jpg"
+        "photo": "based_wojak.webp",
+        "category": "Anime/Weeb Culture"
     },
     {
         "id": 68,
         "name": "Top G Pose",
-        "price":  999,
+        "price": 999,
         "description": "Controversial influencer in cigar smoking power stance",
-        "photo": "tate_pose.jpg"
+        "photo": "tate_pose.webp",
+        "category": "Political/Social Commentary"
     },
     {
         "id": 69,
         "name": "Ambatukam Face",
-        "price":  300,
+        "price": 300,
         "description": "Viral strained facial expression from NSFW video",
-        "photo": "ambatukam.jpg"
+        "photo": "ambatukam.webp",
+        "category": "Body Horror/Strange"
     },
     {
         "id": 72,
         "name": "Sin City Edit",
-        "price":  550,
+        "price": 550,
         "description": "Frank Miller style comic filter over depression memes",
-        "photo": "sincity_monday.jpg"
+        "photo": "sincity_monday.webp",
+        "category": "Anime/Weeb Culture"
     },
     {
         "id": 74,
         "name": "John Pork Call",
-        "price":  880,
+        "price": 880,
         "description": "AI generated pig man with phone receiver",
-        "photo": "john_pork.jpg"
+        "photo": "john_pork.webp",
+        "category": "Absurdist Humor"
     },
     {
         "id": 76,
         "name": "Glizzy Gladiator",
-        "price":  250,
+        "price": 250,
         "description": "Hot dog mascot in Roman armor",
-        "photo": "glizzy_warrior.jpg"
+        "photo": "glizzy_warrior.webp",
+        "category": "Viral Internet Trends"
     },
     {
         "id": 81,
         "name": "Fortnite Pass",
-        "price":  450,
+        "price": 450,
         "description": "Battle pass menu screen with highlighted skins",
-        "photo": "fortnite_pass.jpg"
+        "photo": "fortnite_pass.webp",
+        "category": "Gaming/VR Culture"
     },
     {
         "id": 82,
         "name": "All My Fellas",
-        "price":  350,
+        "price": 350,
         "description": "Crowd of identical men pointing rhythmically",
-        "photo": "fellas_point.jpg"
+        "photo": "fellas_point.webp",
+        "category": "Challenges/Dances"
     },
     {
         "id": 83,
         "name": "Cringe Cat",
-        "price":  200,
+        "price": 200,
         "description": "Feline making uncomfortable eye contact",
-        "photo": "cringe_cat.jpg"
+        "photo": "cringe_cat.webp",
+        "category": "Body Horror/Strange"
     },
     {
         "id": 84,
         "name": "NNN Calendar",
-        "price":  100,
+        "price": 100,
         "description": "November grid with increasingly chaotic X marks",
-        "photo": "nut_november.jpg"
+        "photo": "nut_november.webp",
+        "category": ""
     },
     {
         "id": 87,
         "name": "Miss Girl",
-        "price":  450,
+        "price": 450,
         "description": "TikTok creator doing iconic hair flip gesture",
-        "photo": "hit_or_miss.jpg"
+        "photo": "hit_or_miss.webp",
+        "category": "Pop Culture References"
     }
 ]

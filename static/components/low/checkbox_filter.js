@@ -7,7 +7,7 @@ class CheckboxFilter extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
 
         this.shadowRoot.innerHTML = ``;
     }

@@ -2,7 +2,7 @@ class Header extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML += `
         <div id="main-header">
             <h1>Buy Your Brainrot</h1>

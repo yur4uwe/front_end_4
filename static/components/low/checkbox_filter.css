@@ -12,6 +12,11 @@ input[type="checkbox"]:not(:checked)+span::after {
     transition: width 0.5s;
 }
 
+span:hover {
+    scale: 1.05;
+    transition: scale 0.5s;
+}
+
 span.checkbox {
     position: relative;
     /* Ensure the span is positioned relative */

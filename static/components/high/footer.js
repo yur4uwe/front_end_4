@@ -2,7 +2,7 @@ class Footer extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
         this.shadowRoot.innerHTML = `
             <div class="footer-container">
                 <div class="content">

@@ -2,7 +2,8 @@ class RangeFilter extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.loadStyles();
+        //this.loadStyles();
+        this.shadowRoot.innerHTML = `<div id="filter-content"></div>`;
     }
 
     async loadStyles() {
@@ -34,10 +35,12 @@ class RangeFilter extends HTMLElement {
      * @param {Filter} filterState 
      */
     setFilterState(filterState) {
-        this.shadowRoot.innerHTML = '';
+        const filterContent = this.shadowRoot.getElementById('filter-content');
+        filterContent.innerHTML = '';
+
         const name = document.createElement('h3');
         name.textContent = filterState.name;
-        this.shadowRoot.appendChild(name);
+        filterContent.appendChild(name);
 
         const maxCharWidth = Math.max(...filterState.range.map(num => num.toString().length)) + 1;
 
@@ -56,7 +59,7 @@ class RangeFilter extends HTMLElement {
         const rangeElement = document.createElement('range-input');
         rangeElement.id = filterState.name;
         rangeElement.addEventListener('input-change', (e) => this.updateInputs(e, minInput, maxInput));
-        
+
         const maxInput = document.createElement('input');
         maxInput.className = 'range-value';
         maxInput.type = 'text';
@@ -65,10 +68,10 @@ class RangeFilter extends HTMLElement {
         maxInput.value = filterState.range[1];
         maxInput.style.width = `${maxCharWidth}ch`;
         maxInput.addEventListener('input', (e) => this.handleInputChange(e, false));
-        
+
         container.append(minInput, rangeElement, maxInput);
-        this.shadowRoot.appendChild(container);
-        
+        filterContent.appendChild(container);
+
         rangeElement.setAttributes(...filterState.range, ...filterState.range);
     }
 

@@ -8,7 +8,7 @@
     /* border: 2px solid var(--text-color, black); */
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     max-width: calc(200px * 5 + 50px);
-} 
+}
 
 #loading-spinner {
     display: block;
@@ -27,7 +27,21 @@
     to {
         transform: rotate(360deg);
     }
-    
+
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 body:not(.page-loaded) {
@@ -77,4 +91,43 @@ img {
 .active {
     background: var(--text-color, black);
     color: var(--bg-color-1);
+}
+
+.placeholder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 250px;
+    font-size: 1.5rem;
+    padding: 10px;
+    border: 1px solid var(--text-color, black);
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    color: var(--text-color, black);
+    background: transparent;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    margin: 0 auto 5px auto;
+    background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-1));
+    background-size: 200% 200%;
+    /* Makes the gradient larger than the element */
+    animation: gradientAnimation 2s infinite linear;
+    /* Moves the gradient */
+}
+
+.text-placeholder {
+    height: 1.5rem;
+    width: 100%;
+    border-radius: 5px;
+    margin: 5px auto;
+    background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-1));
+    background-size: 200% 200%;
+    /* Makes the gradient larger than the element */
+    animation: gradientAnimation 2s infinite linear;
+    /* Moves the gradient */
 }

@@ -11,6 +11,8 @@
     background: transparent !important;
     border-top: 1px solid var(--text-color, #fff);
     backdrop-filter: blur(10px);
+
+    animation: slideInFromBottom 1s ease-out forwards;
 }
 
 .footer-container {
@@ -72,16 +74,28 @@ h2 {
     font-weight: 400;
 }
 
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .social-links .links {
         justify-content: center;
     }
-    
+
     :host {
         margin: 0 20px;
         padding: 5px 10px;

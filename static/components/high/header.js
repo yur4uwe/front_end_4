@@ -8,7 +8,7 @@ class Header extends HTMLElement {
             <h1>Buy Your Brainrot</h1>
             <nav>
                 <a href="/home"><img src="/static/img/home.png"></a>
-                <a href="/cart">
+                <a id="cart-icon">
                     <img src="/static/img/cart.png">
                     <div id="items-in-cart">0</div>
                 </a>
@@ -25,6 +25,11 @@ class Header extends HTMLElement {
         this.checkItemsInCart();
 
         document.addEventListener("add-to-cart", this.checkItemsInCart.bind(this));
+
+        // Add event listener to the cart icon
+        this.shadowRoot.getElementById("cart-icon").addEventListener("click", () => {
+            this.openCartModal();
+        });
     }
 
     async loadStyles() {
@@ -43,7 +48,34 @@ class Header extends HTMLElement {
             this.shadowRoot.getElementById("items-in-cart").style.display = "flex";
         }
 
-        this.shadowRoot.getElementById("items-in-cart").textContent = numOfItems
+        this.shadowRoot.getElementById("items-in-cart").textContent = numOfItems;
+    }
+
+    openCartModal() {
+        console.log("Opening cart modal");
+        
+        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        const modal = document.createElement("modal-window");
+
+        const modalContent = document.createElement("div");
+        modalContent.id = "cart-modal-content";
+
+        if (cartItems.length === 0) {
+            modalContent.innerHTML = "<p>Your cart is empty.</p>";
+        } else {
+            modalContent.innerHTML = `
+                <h2>Your Cart</h2>
+                <ul>
+                    ${cartItems.map(item => `<li>${item.name}</li>`).join("")}
+                </ul>
+            `;
+        }
+
+        modal.setContent(modalContent);
+        const modalDest = document.getElementById("modal");
+        modalDest.innerHTML = "";
+        modalDest.appendChild(modal);
+        modalDest.classList.add("show");
     }
 }
 

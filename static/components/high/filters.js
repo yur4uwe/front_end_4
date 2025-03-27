@@ -142,7 +142,6 @@ class Filters extends HTMLElement {
         const checkbox = this.shadowRoot.getElementById("filters-applied-checkbox")
         checkbox.checked = true;
 
-
         document.dispatchEvent(new CustomEvent('filters-applied', { detail: applyFilters }));
     }
 }

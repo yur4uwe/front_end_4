@@ -77,6 +77,9 @@ func filterProducts(filters map[string]interface{}, products []Product) []Produc
 
 	fmt.Println("Applying checkbox filters:", apply_checkbox_filters)
 
+	fit_into_price_range := 0
+	//dont_fit_into_price_range := 0
+
 	for _, product := range products {
 		// Apply checkbox filters
 		if apply_checkbox_filters {
@@ -95,17 +98,23 @@ func filterProducts(filters map[string]interface{}, products []Product) []Produc
 		}
 
 		// Apply range filters
+		dont_fit_into_price_range := false
 		for key, value := range range_filters {
 			if key == "Price" {
 				rangeFilter := value.(map[string]interface{})
 				minValue := float64(rangeFilter["min"].(float64))
 				maxValue := float64(rangeFilter["max"].(float64))
 				if product.Price < minValue || product.Price > maxValue {
+					dont_fit_into_price_range = true
 					continue
 				}
+				fit_into_price_range++
+				//fmt.Println("Product price:", product.Price, "Min value:", minValue, "Max value:", maxValue)
 			}
 		}
-
+		if dont_fit_into_price_range {
+			continue
+		}
 		// Select filters (unimplemented)
 
 		// Add the product to the filtered list

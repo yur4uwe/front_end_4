@@ -63,7 +63,8 @@ class Card extends HTMLElement {
 
         const buyButton = document.createElement('button');
         buyButton.textContent = "Buy";
-        buyButton.addEventListener('click', () => {
+        buyButton.addEventListener('click', (event) => {
+            event.stopPropagation();
             console.log(`Buying ${product.name}`);
             document.dispatchEvent(new CustomEvent('buy', { detail: product }));
         });
@@ -72,7 +73,8 @@ class Card extends HTMLElement {
 
         const addToCartButton = document.createElement('button');
         addToCartButton.textContent = "Add to cart";
-        addToCartButton.addEventListener('click', () => {
+        addToCartButton.addEventListener('click', (event) => {
+            event.stopPropagation();
             console.log(`Adding ${product.name} to cart`);
 
             const itemsInCart = localStorage.getItem("cart");
@@ -81,16 +83,25 @@ class Card extends HTMLElement {
                  * @type {number[]} cart
                  */
                 const cart = JSON.parse(itemsInCart);
-                if (cart.includes(product.id)) {
+
+                let productAlreadyInCart = false;
+                for (const item of cart) {
+                    if (item.id === product.id) {
+                        productAlreadyInCart = true;
+                        break;
+                    }
+                }
+
+                if (productAlreadyInCart) {
                     console.log("Product already in cart");
                     return;
                 } else {
-                    cart.push(product.id);
+                    cart.push({id: product.id, name: product.name});
                 }
 
                 localStorage.setItem("cart", JSON.stringify(cart));
             } else {
-                localStorage.setItem("cart", JSON.stringify([product.id]));
+                localStorage.setItem("cart", JSON.stringify([{id: product.id, name: product.name}]));
             }
 
             document.dispatchEvent(new CustomEvent('add-to-cart', { detail: product }));

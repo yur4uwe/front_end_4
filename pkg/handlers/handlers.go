@@ -95,6 +95,8 @@ func Products(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Filters applied:", filters)
 	var filtered_products []Product
 	if apply_filters {
+		fmt.Println("Applying filters")
+
 		filtered_products = filterProducts(filters, products)
 
 		total_pages_float := float64(len(filtered_products)) / float64(page_len)
@@ -105,6 +107,7 @@ func Products(w http.ResponseWriter, r *http.Request) {
 			total_pages++
 		}
 	} else {
+		fmt.Println("Not applying filters")
 		filtered_products = products
 	}
 

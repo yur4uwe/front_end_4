@@ -4,9 +4,9 @@
     padding: 10px;
     text-align: center;
     color: var(--text-color, black);
-    border-radius: 10px;
-    /* border: 2px solid var(--text-color, black); */
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    /* border-radius: 10px; */
+    border-left: 2px solid var(--text-color, black);
+    /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2); */
     max-width: calc(200px * 5 + 50px);
 }
 
